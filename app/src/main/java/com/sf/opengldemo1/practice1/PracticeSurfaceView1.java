@@ -61,7 +61,7 @@ public class PracticeSurfaceView1 extends GLSurfaceView {
 //            gl.glDisable(GL10.GL_DITHER);//关闭抗抖动
 //            gl.glHint(GL10.GL_PERSPECTIVE_CORRECTION_HINT,GL10.GL_FASTEST);//设置为快速模式
 //            gl.glClearColor(0,0,0,0);//设置屏幕背景色为黑色
-//            gl.glEnable(GL10.GL_DEPTH_TEST);//启用深度检测
+//            gl.glEnable(GL10.GL_DEPTH_TEST);//启用深度检测，就不会看到物体的背面
 
             GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);//重新绘制背景颜色
         }
