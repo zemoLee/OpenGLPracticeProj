@@ -41,6 +41,14 @@
         <activity android:name=".practice14.Practice_14_Activity"/>
         <!--practice 2-->
         <activity android:name="com.sf.openglpractice2.Basic_Graphic_2D.Practice1Acitivity">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN"/>-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--</intent-filter>-->
+        </activity>
+
+        <activity android:name="com.sf.openglpractice2.Basic_Graphic_3D.Practice3DAcitivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
