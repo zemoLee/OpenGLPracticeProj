@@ -28,6 +28,8 @@ public class Render_2_3D implements GLSurfaceView.Renderer {
     private float angle = 0;
     /**
      * 顶点数组
+     * 一行，就是一个顶点坐标
+     * 数组的长度= 顶点的个数*3
      */
     static float vertices[] = new float[]{
 //            0,-X, Z,
@@ -194,4 +196,6 @@ public class Render_2_3D implements GLSurfaceView.Renderer {
         gl.glDrawElements(GL10.GL_TRIANGLES, indices.length, GL10.GL_UNSIGNED_SHORT, bufferShorIntUtil(indices));
         angle += 0.5;
     }
+
+
 }

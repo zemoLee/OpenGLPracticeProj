@@ -21,12 +21,12 @@ import javax.microedition.khronos.opengles.GL10;
  * @Date: 2019/4/29
  * @Des: //绘制球
  */
-public class Render_2_3D_Ball implements GLSurfaceView.Renderer {
+public class Render_2_3D_Ball_with_touch implements GLSurfaceView.Renderer {
     private float angle = 0;
 
     Ball ball;
     GL10 gl;
-    public Render_2_3D_Ball() {
+    public Render_2_3D_Ball_with_touch() {
         ball = new Ball();
     }
 
@@ -72,16 +72,20 @@ public class Render_2_3D_Ball implements GLSurfaceView.Renderer {
         gl.glEnable(GL10.GL_DEPTH_TEST);
         // 复位深度缓存
         gl.glClearDepthf(1.0f);
+
+        initMatrix();
     }
 
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
-        float radio = (float) width / height;
+        float ratio = (float) width / height;
         gl.glViewport(0, 0, width, height);
         gl.glMatrixMode(GL10.GL_PROJECTION);
         gl.glLoadIdentity();
-//        gl.glFrustumf(-radio, radio, -1, 1, 1, 1000);
-        GLU.gluPerspective(gl, 90.0f, (float) width / height, 0.1f, 50.0f);
+//        gl.glFrustumf(-ratio, ratio, -1, 1, 1, 1000);
+        // 调用此方法计算产生透视投影矩阵
+        Matrix.frustumM(mProjectionMatrix, 0, -ratio, ratio, -1, 1, 20, 100);
+//        GLU.gluPerspective(gl, 90.0f, (float) width / height, 0.1f, 50.0f);
     }
 
     float[] colors = {0.1f, 0.1f, 0.1f, 0.1f};
@@ -101,7 +105,7 @@ public class Render_2_3D_Ball implements GLSurfaceView.Renderer {
         gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
         gl.glEnableClientState(GL10.GL_NORMAL_ARRAY);
 
-        ball.draw2(gl);
+        ball.draw(gl);
         angle += 0.5f;
 
         gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
@@ -225,12 +229,13 @@ public class Render_2_3D_Ball implements GLSurfaceView.Renderer {
 
         // 数组中每个顶点的坐标数,3组
         private static final int COORDS_PER_VERTEX = 3;
+        private static final int BYTES_PER_FLOAT = 4;
+
         public void draw2(GL10 gl) {
-            //顶点个数
+            //顶点总数
             int vertexCount = getBallVertexs().size()/COORDS_PER_VERTEX;
-            //顶点数组=顶点个数*3
-            float vertices[] = new float[vertexCount*COORDS_PER_VERTEX];
-            for (int i = 0; i <getBallVertexs().size(); i++) {
+            float vertices[] = new float[vertexCount * COORDS_PER_VERTEX];
+            for (int i = 0; i < vertexCount; i++) {
                 vertices[i] = getBallVertexs().get(i);
             }
             FloatBuffer vertexBuffer = (FloatBuffer) bufferFloatIntUtil(vertices);
@@ -246,74 +251,78 @@ public class Render_2_3D_Ball implements GLSurfaceView.Renderer {
          */
         private List<Float> getBallVertexs() {
             List<Float> vertex = new ArrayList<>();
-            float step = 20.0f;
-            float radius = 10.0f;
+            float step = 10.0f;
+            float radius = 0.6f;
             //横切
-            for (float rowAngel = 0; rowAngel <=180; rowAngel += step) {
+            for (float rowAngel = -90.0f; rowAngel < 90.0f; rowAngel += step) {
                 //按弧度切
                 for (float colAngel = 0; colAngel < 360.0f; colAngel += step) {
-                    double xozLength = radius * Math.cos(Math.toRadians(rowAngel));
-                    float x = (int) (xozLength * Math.cos(Math.toRadians(colAngel)));
-                    float z = (int) (xozLength * Math.sin(Math.toRadians(colAngel)));
-                    float y = (int) (radius * Math.sin(Math.toRadians(colAngel)));
-//                    float y = (int) (xozLength * Math.sin(Math.toRadians(colAngel)));
-//                    float z = (int) (radius * Math.sin(Math.toRadians(colAngel)));
-                    vertex.add(x);
-                    vertex.add(y);
-                    vertex.add(z);
-
                     //这里的rowAngel是10进制，不是度数， 因为math的三角函数，需要的是度数，-->>>Math.toRadians()转换  ==》》数值* Math.PI / 180.0
-//                    float x0 = (float) (radius * Math.sin(Math.toRadians(rowAngel) )* Math.cos(Math.toRadians(colAngel)));
-//                    float y0 = (float) (radius * Math.sin(Math.toRadians(rowAngel) ) * Math.sin(Math.toRadians(colAngel)));
-//                    float z0 = (float) (radius * Math.cos((rowAngel)));
-//
-//                    float x1 = (float) (radius * Math.sin(Math.toRadians(rowAngel)) * Math.cos(Math.toRadians(colAngel + step)));
-//                    float y1 = (float) (radius * Math.sin(Math.toRadians(rowAngel) )* Math.sin(Math.toRadians(colAngel + step)));
-//                    float z1 = (float) (radius * Math.cos(Math.toRadians(rowAngel)));
-//
-//                    float x2 = (float) (radius * Math.sin(Math.toRadians(rowAngel + step)) * Math.cos(Math.toRadians(colAngel + step)));
-//                    float y2 = (float) (radius * Math.sin(Math.toRadians(rowAngel + step)) * Math.sin(Math.toRadians(colAngel + step)));
-//                    float z2 = (float) (radius * Math.cos(Math.toRadians(rowAngel + step)));
-//
-//                    float x3 = (float) (radius * Math.sin(Math.toRadians(rowAngel + step)) * Math.cos(Math.toRadians(colAngel)));
-//                    float y3 = (float) (radius * Math.sin(Math.toRadians(rowAngel + step)) * Math.sin(Math.toRadians(colAngel)));
-//                    float z3 = (float) (radius * Math.cos(Math.toRadians(rowAngel + step)));
-//
-//                    vertex.add(x1);
-//                    vertex.add(y1);
-//                    vertex.add(z1);
-//
-//                    vertex.add(x3);
-//                    vertex.add(y3);
-//                    vertex.add(z3);
-//
-//                    vertex.add(x0);
-//                    vertex.add(y0);
-//                    vertex.add(z0);
-//
-//
-//                    vertex.add(x1);
-//                    vertex.add(y1);
-//                    vertex.add(z1);
-//
-//                    vertex.add(x2);
-//                    vertex.add(y2);
-//                    vertex.add(z2);
-//
-//                    vertex.add(x3);
-//                    vertex.add(y3);
-//                    vertex.add(z3);
+                    float x0 = (float) (radius * Math.sin(Math.toRadians(rowAngel) )* Math.cos(Math.toRadians(colAngel)));
+                    float y0 = (float) (radius * Math.sin(Math.toRadians(rowAngel) ) * Math.sin(Math.toRadians(colAngel)));
+                    float z0 = (float) (radius * Math.cos((rowAngel)));
+
+                    float x1 = (float) (radius * Math.sin(Math.toRadians(rowAngel)) * Math.cos(Math.toRadians(colAngel + step)));
+                    float y1 = (float) (radius * Math.sin(Math.toRadians(rowAngel) )* Math.sin(Math.toRadians(colAngel + step)));
+                    float z1 = (float) (radius * Math.cos(Math.toRadians(rowAngel)));
+
+                    float x2 = (float) (radius * Math.sin(Math.toRadians(rowAngel + step)) * Math.cos(Math.toRadians(colAngel + step)));
+                    float y2 = (float) (radius * Math.sin(Math.toRadians(rowAngel + step)) * Math.sin(Math.toRadians(colAngel + step)));
+                    float z2 = (float) (radius * Math.cos(Math.toRadians(rowAngel + step)));
+
+                    float x3 = (float) (radius * Math.sin(Math.toRadians(rowAngel + step)) * Math.cos(Math.toRadians(colAngel)));
+                    float y3 = (float) (radius * Math.sin(Math.toRadians(rowAngel + step)) * Math.sin(Math.toRadians(colAngel)));
+                    float z3 = (float) (radius * Math.cos(Math.toRadians(rowAngel + step)));
+
+                    vertex.add(x1);
+                    vertex.add(y1);
+                    vertex.add(z1);
+
+                    vertex.add(x3);
+                    vertex.add(y3);
+                    vertex.add(z3);
+
+                    vertex.add(x0);
+                    vertex.add(y0);
+                    vertex.add(z0);
+
+
+                    vertex.add(x1);
+                    vertex.add(y1);
+                    vertex.add(z1);
+
+                    vertex.add(x2);
+                    vertex.add(y2);
+                    vertex.add(z2);
+
+                    vertex.add(x3);
+                    vertex.add(y3);
+                    vertex.add(z3);
                 }
             }
             return vertex;
         }
 
     }
+    // 初始化矩阵
+   public void initMatrix(){
+       Matrix.setIdentityM(mViewMatrix, 0);
+       Matrix.setIdentityM(mModelMatrix, 0);
+       Matrix.setIdentityM(mProjectionMatrix, 0);
+       Matrix.setIdentityM(mMVPMatrix, 0);
+    }
 
-
+    //视图矩阵
+    private float[] mViewMatrix = new float[16];
+   //模型矩阵
+    private float[] mModelMatrix = new float[16];
+    //t投影矩阵
+    private float[] mProjectionMatrix = new float[16];
+    //总变换矩阵
+    private float[] mMVPMatrix = new float[16];
 
     public  void  roate(float angel,float x,float y,float z){
 //        gl.glRotatef(angle, 1.0f, 1, 1);
-//        Matrix.rotateM(mModelMatrix, 0, angle, x, y, z);
+        Matrix.rotateM(mModelMatrix, 0, angle, x, y, z);
     }
 }
