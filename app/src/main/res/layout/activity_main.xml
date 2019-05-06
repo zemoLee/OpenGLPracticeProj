@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/practice_btn1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="绘制背景显示清屏色" />
+
+        <Button
+            android:id="@+id/practice_btn2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="绘制三角形（旋转或横盘都不变形）" />
+
+        <Button
+            android:id="@+id/practice_btn3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="绘制旋转的三角形" />
+
+        <Button
+            android:id="@+id/practice_btn4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="根据收拾旋转" />
+
+        <Button
+            android:id="@+id/practice_btn5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="绘制彩色三角形" />
+
+        <Button
+            android:id="@+id/practice_btn6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="绘制彩色圆形" />
+
+        <Button
+            android:id="@+id/practice_btn7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="绘制正方形" />
+
+        <Button
+            android:id="@+id/practice_btn8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="绘制正方体" />
+
+        <Button
+            android:id="@+id/practice_btn9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="绘制圆锥体" />
+
+        <Button
+            android:id="@+id/practice_btn10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="绘制圆柱体" />
+
+        <Button
+            android:id="@+id/practice_btn11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="绘制球体" />
+
+        <Button
+            android:id="@+id/practice_btn12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="绘制2D图：皮肤贴图"/>
+        <Button
+            android:id="@+id/practice_btn13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="绘制Obj模型：绘制帽子"/>
+        <Button
+            android:id="@+id/practice_btn14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="绘制Obj模型：绘制有纹理的模型"/>
+    </LinearLayout>
+</ScrollView>
