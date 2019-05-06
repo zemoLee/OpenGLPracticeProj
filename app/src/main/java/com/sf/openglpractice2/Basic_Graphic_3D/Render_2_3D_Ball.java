@@ -2,7 +2,6 @@ package com.sf.openglpractice2.Basic_Graphic_3D;
 
 import android.opengl.GLSurfaceView;
 import android.opengl.GLU;
-import android.opengl.Matrix;
 
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
@@ -102,6 +101,7 @@ public class Render_2_3D_Ball implements GLSurfaceView.Renderer {
         gl.glEnableClientState(GL10.GL_NORMAL_ARRAY);
 
         ball.draw2(gl);
+//        ball.draw(gl);
         angle += 0.5f;
 
         gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
@@ -173,7 +173,7 @@ public class Render_2_3D_Ball implements GLSurfaceView.Renderer {
             /**
              * 步长为2.0f
              */
-            float step = 20.0f;
+            float step = 2.0f;
             /**
              * 顶点数组,总共32个顶点，每个顶点3个坐标值
              */
@@ -189,7 +189,7 @@ public class Render_2_3D_Ball implements GLSurfaceView.Renderer {
             vbb = ByteBuffer.allocateDirect(v.length * v[0].length * 4);
             vbb.order(ByteOrder.nativeOrder());
             vBuf = vbb.asFloatBuffer();
-            for (pai = -90.0f; pai < 90.0f; pai += step) {
+            for (pai = -90f; pai <=90.0f; pai += step) {
                 int n = 0;
                 r1 = (float) Math.cos(pai * Math.PI / 180.0);
                 r2 = (float) Math.cos((pai + step) * Math.PI / 180.0);
@@ -222,25 +222,63 @@ public class Render_2_3D_Ball implements GLSurfaceView.Renderer {
                 gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, n);
             }
         }
+        /**
+         * 用顶点索引数组构造圆
+         */
+        private void  getIndexArray(){
+            ArrayList<Integer> alIndex=new ArrayList<Integer>();
+            int row=(180/20)+1; //球面切分的行数，切9次，但是是出来10份
+            int col=360/20;  //球面切分的列数
+            for (int i = 0; i < row; i++) {  //对每一行循环
+                if(i>0 && i<row-1){
+                    //中间行
+                    for (int j = -1; j < col; j++) {
+                        //中间行的两个相邻点与下一行的对应点构成三角形
+                        int k=i*col+j;
+                        alIndex.add(k+col);
+                        alIndex.add(k+1);
+                        alIndex.add(k);
+                    }
+                    for (int j = 0; j < col+1; j++) {
+                        //中间行的两个相邻点与上一行的对应点构成三角形
+                        int k=i*col+j;
+                        alIndex.add(k-col);
+                        alIndex.add(k-1);
+                        alIndex.add(k);
+                    }
+                }
+            }
+            int  iCount=alIndex.size();
+            byte indices []=new byte[iCount];
+            for (int i = 0; i < iCount; i++) {
+                indices[i]=alIndex.get(i).byteValue();
+            }
+        }
 
-        // 数组中每个顶点的坐标数,3组
+
+
+
         private static final int COORDS_PER_VERTEX = 3;
+
         public void draw2(GL10 gl) {
-            //顶点个数
+            //顶点的数量= 坐标值数量的1/3，因为一个顶点有3个坐标
             int vertexCount = getBallVertexs().size()/COORDS_PER_VERTEX;
             //顶点数组=顶点个数*3
-            float vertices[] = new float[vertexCount*COORDS_PER_VERTEX];
-            for (int i = 0; i <getBallVertexs().size(); i++) {
-                vertices[i] = getBallVertexs().get(i);
-            }
+            float vertices[] = getVertexs(getBallVertexs());
+            //顶点坐标buffer
             FloatBuffer vertexBuffer = (FloatBuffer) bufferFloatIntUtil(vertices);
+            //顶点法向量buffer
+            FloatBuffer normalBuffer = (FloatBuffer) bufferFloatIntUtil(vertices);
+
             gl.glVertexPointer(3, GL10.GL_FLOAT, 0, vertexBuffer);
             gl.glNormalPointer(GL10.GL_FLOAT, 0, vertexBuffer);
             gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, vertexCount);
         }
 
+
+
         /**
-         * 获取圆上所有顶点坐标
+         * 获取圆上所有顶点坐标List
          *
          * @return
          */
@@ -249,64 +287,73 @@ public class Render_2_3D_Ball implements GLSurfaceView.Renderer {
             float step = 20.0f;
             float radius = 10.0f;
             //横切
-            for (float rowAngel = 0; rowAngel <=180; rowAngel += step) {
+            for (float rowAngel = -90; rowAngel <= 90; rowAngel += step) {
                 //按弧度切
                 for (float colAngel = 0; colAngel < 360.0f; colAngel += step) {
                     double xozLength = radius * Math.cos(Math.toRadians(rowAngel));
                     float x = (int) (xozLength * Math.cos(Math.toRadians(colAngel)));
-                    float z = (int) (xozLength * Math.sin(Math.toRadians(colAngel)));
-                    float y = (int) (radius * Math.sin(Math.toRadians(colAngel)));
-//                    float y = (int) (xozLength * Math.sin(Math.toRadians(colAngel)));
-//                    float z = (int) (radius * Math.sin(Math.toRadians(colAngel)));
+                    float y = (int) (xozLength * Math.sin(Math.toRadians(colAngel)));
+                    float z = (int) (radius * Math.sin(Math.toRadians(rowAngel)));
                     vertex.add(x);
                     vertex.add(y);
                     vertex.add(z);
-
-                    //这里的rowAngel是10进制，不是度数， 因为math的三角函数，需要的是度数，-->>>Math.toRadians()转换  ==》》数值* Math.PI / 180.0
-//                    float x0 = (float) (radius * Math.sin(Math.toRadians(rowAngel) )* Math.cos(Math.toRadians(colAngel)));
-//                    float y0 = (float) (radius * Math.sin(Math.toRadians(rowAngel) ) * Math.sin(Math.toRadians(colAngel)));
-//                    float z0 = (float) (radius * Math.cos((rowAngel)));
-//
-//                    float x1 = (float) (radius * Math.sin(Math.toRadians(rowAngel)) * Math.cos(Math.toRadians(colAngel + step)));
-//                    float y1 = (float) (radius * Math.sin(Math.toRadians(rowAngel) )* Math.sin(Math.toRadians(colAngel + step)));
-//                    float z1 = (float) (radius * Math.cos(Math.toRadians(rowAngel)));
-//
-//                    float x2 = (float) (radius * Math.sin(Math.toRadians(rowAngel + step)) * Math.cos(Math.toRadians(colAngel + step)));
-//                    float y2 = (float) (radius * Math.sin(Math.toRadians(rowAngel + step)) * Math.sin(Math.toRadians(colAngel + step)));
-//                    float z2 = (float) (radius * Math.cos(Math.toRadians(rowAngel + step)));
-//
-//                    float x3 = (float) (radius * Math.sin(Math.toRadians(rowAngel + step)) * Math.cos(Math.toRadians(colAngel)));
-//                    float y3 = (float) (radius * Math.sin(Math.toRadians(rowAngel + step)) * Math.sin(Math.toRadians(colAngel)));
-//                    float z3 = (float) (radius * Math.cos(Math.toRadians(rowAngel + step)));
-//
-//                    vertex.add(x1);
-//                    vertex.add(y1);
-//                    vertex.add(z1);
-//
-//                    vertex.add(x3);
-//                    vertex.add(y3);
-//                    vertex.add(z3);
-//
-//                    vertex.add(x0);
-//                    vertex.add(y0);
-//                    vertex.add(z0);
-//
-//
-//                    vertex.add(x1);
-//                    vertex.add(y1);
-//                    vertex.add(z1);
-//
-//                    vertex.add(x2);
-//                    vertex.add(y2);
-//                    vertex.add(z2);
-//
-//                    vertex.add(x3);
-//                    vertex.add(y3);
-//                    vertex.add(z3);
                 }
             }
             return vertex;
         }
+
+        /**
+         * @Author  Jinhuan.Li
+         * @method
+         * @Params
+         * @return
+         * @Description: 方法描述： 获取所有顶点坐标数组
+         */
+        private float[]  getVertexs(List<Float> vertexList){
+            //顶点数组=顶点个数
+            float vertices[] = new float[vertexList.size()];
+            for (int i = 0; i <getBallVertexs().size(); i++) {
+                vertices[i] = getBallVertexs().get(i);
+            }
+            return  vertices;
+        }
+
+        /**
+         * @Author  Jinhuan.Li
+         * @method
+         * @Params
+         * @return
+         * @Description: 方法描述： 获取顶点Buffer
+         */
+        private  FloatBuffer getVertexBuffer(float vertices[]){
+            FloatBuffer  vertexBuffer= (FloatBuffer) bufferFloatIntUtil(vertices);
+            return vertexBuffer;
+        }
+
+        /**
+         *  获取顶点索引序列号集合List
+         * @param vertexList
+         * @return
+         */
+        private float[] getVertxIndexs(List<Float> vertexList){
+            float[] data_vertex = new float[vertexList.size()];
+            for (int i = 0; i < vertexList.size(); i++) {
+                data_vertex[i] = vertexList.get(i);
+            }
+            return data_vertex;
+        }
+        /**
+         * @Author  Jinhuan.Li
+         * @method
+         * @Params
+         * @return
+         * @Description: 方法描述： 获取索引缓存Buffer
+         */
+        private FloatBuffer getIndexBuffer(float[] vertices){
+            FloatBuffer  vertexIndexBuffer= (FloatBuffer) bufferFloatIntUtil(vertices);
+            return vertexIndexBuffer;
+        }
+
 
     }
 
