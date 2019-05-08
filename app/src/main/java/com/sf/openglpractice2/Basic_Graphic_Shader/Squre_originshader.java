@@ -104,44 +104,45 @@ public class Squre_originshader {
 
     //八个顶点的颜色，与顶点坐标一一对应
     float color[] = {
-            1,1f,1,1f,
-            1,1f,1,1f,
-            1,1f,1,1f,
-            1,1f,1,1f,
-            1f,1,1,1f,
-            1f,1,1,1f,
-            1f,1,1,1f,
-            1f,1,1,1f,
-//            1f,0f,0f,1f ,
 //            0f,1f,0f,1f,
-//            0f,0f,1f,1f,
-//            1f,0f,0f,1f,
-//
-//            1f,0f,0f,1f ,
 //            0f,1f,0f,1f,
-//            0f,0f,1f,1f,
-//            1f,0f,0f,1f,
-//
-//            1f,0f,0f,1f ,
 //            0f,1f,0f,1f,
-//            0f,0f,1f,1f,
-//            1f,0f,0f,1f,
-//
-//            1f,0f,0f,1f ,
 //            0f,1f,0f,1f,
-//            0f,0f,1f,1f,
 //            1f,0f,0f,1f,
-//
-//
-//            1f,0f,0f,1f ,
-//            0f,1f,0f,1f,
-//            0f,0f,1f,1f,
 //            1f,0f,0f,1f,
-//
-//            1f,0f,0f,1f ,
-//            0f,1f,0f,1f,
-//            0f,0f,1f,1f,
 //            1f,0f,0f,1f,
+//            1f,0f,0f,1f,
+
+            1f,0f,0f,1f ,
+            0f,1f,0f,1f,
+            0f,0f,1f,1f,
+            1f,0f,0f,1f,
+
+            1f,0f,0f,1f ,
+            0f,1f,0f,1f,
+            0f,0f,1f,1f,
+            1f,0f,0f,1f,
+
+            1f,0f,0f,1f ,
+            0f,1f,0f,1f,
+            0f,0f,1f,1f,
+            1f,0f,0f,1f,
+
+            1f,0f,0f,1f ,
+            0f,1f,0f,1f,
+            0f,0f,1f,1f,
+            1f,0f,0f,1f,
+
+
+            1f,0f,0f,1f ,
+            0f,1f,0f,1f,
+            0f,0f,1f,1f,
+            1f,0f,0f,1f,
+
+            1f,0f,0f,1f ,
+            0f,1f,0f,1f,
+            0f,0f,1f,1f,
+            1f,0f,0f,1f,
 
     };
     /**
@@ -162,49 +163,47 @@ public class Squre_originshader {
 
     public Squre_originshader() {
 
-//        vertexBuffer = (FloatBuffer) BufferUtils.bufferFloatIntUtil(vertexArr);
-//        colorBuffer = (FloatBuffer) BufferUtils.bufferFloatIntUtil(colorArr);
-//        indexBuffer = (ShortBuffer) BufferUtils.bufferShorUtil(indexArr);
+        vertexBuffer = (FloatBuffer) BufferUtils.bufferFloatIntUtil(vertex);
+        colorBuffer = (FloatBuffer) BufferUtils.bufferFloatIntUtil(color);
+        indexBuffer = (ShortBuffer) BufferUtils.bufferShorUtil(index);
+        int vertexShader = loadShader(GLES20.GL_VERTEX_SHADER, vertexShaderCode);
+        int fragmentShader = loadShader(GLES20.GL_FRAGMENT_SHADER, fragmentShaderCode);
+        mProgram = GLES20.glCreateProgram();
+        GLES20.glAttachShader(mProgram, vertexShader);
+        GLES20.glAttachShader(mProgram, fragmentShader);
+        GLES20.glLinkProgram(mProgram);
+
+//        ByteBuffer bb = ByteBuffer.allocateDirect(
+//                vertex.length * 4);
+//        bb.order(ByteOrder.nativeOrder());
+//        vertexBuffer = bb.asFloatBuffer();
+//        vertexBuffer.put(vertex);
+//        vertexBuffer.position(0);
+//
+//        ByteBuffer dd = ByteBuffer.allocateDirect(
+//                color.length * 4);
+//        dd.order(ByteOrder.nativeOrder());
+//        colorBuffer = dd.asFloatBuffer();
+//        colorBuffer.put(color);
+//        colorBuffer.position(0);
+//
+//        ByteBuffer cc= ByteBuffer.allocateDirect(index.length*2);
+//        cc.order(ByteOrder.nativeOrder());
+//        indexBuffer=cc.asShortBuffer();
+//        indexBuffer.put(index);
+//        indexBuffer.position(0);
 //        int vertexShader = loadShader(GLES20.GL_VERTEX_SHADER,
 //                vertexShaderCode);
 //        int fragmentShader = loadShader(GLES20.GL_FRAGMENT_SHADER,
 //                fragmentShaderCode);
+//        //创建一个空的OpenGLES程序
 //        mProgram = GLES20.glCreateProgram();
+//        //将顶点着色器加入到程序
 //        GLES20.glAttachShader(mProgram, vertexShader);
+//        //将片元着色器加入到程序中
 //        GLES20.glAttachShader(mProgram, fragmentShader);
+//        //连接到着色器程序
 //        GLES20.glLinkProgram(mProgram);
-
-        ByteBuffer bb = ByteBuffer.allocateDirect(
-                vertex.length * 4);
-        bb.order(ByteOrder.nativeOrder());
-        vertexBuffer = bb.asFloatBuffer();
-        vertexBuffer.put(vertex);
-        vertexBuffer.position(0);
-
-        ByteBuffer dd = ByteBuffer.allocateDirect(
-                color.length * 4);
-        dd.order(ByteOrder.nativeOrder());
-        colorBuffer = dd.asFloatBuffer();
-        colorBuffer.put(color);
-        colorBuffer.position(0);
-
-        ByteBuffer cc= ByteBuffer.allocateDirect(index.length*2);
-        cc.order(ByteOrder.nativeOrder());
-        indexBuffer=cc.asShortBuffer();
-        indexBuffer.put(index);
-        indexBuffer.position(0);
-        int vertexShader = loadShader(GLES20.GL_VERTEX_SHADER,
-                vertexShaderCode);
-        int fragmentShader = loadShader(GLES20.GL_FRAGMENT_SHADER,
-                fragmentShaderCode);
-        //创建一个空的OpenGLES程序
-        mProgram = GLES20.glCreateProgram();
-        //将顶点着色器加入到程序
-        GLES20.glAttachShader(mProgram, vertexShader);
-        //将片元着色器加入到程序中
-        GLES20.glAttachShader(mProgram, fragmentShader);
-        //连接到着色器程序
-        GLES20.glLinkProgram(mProgram);
     }
 
 
@@ -228,50 +227,39 @@ public class Squre_originshader {
     }
 
     private void setShader(GL10 gl) {
-//        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT| GLES20.GL_DEPTH_BUFFER_BIT);
-        //将程序加入到OpenGLES2.0环境
         GLES20.glUseProgram(mProgram);
-//        //获取变换矩阵vMatrix成员句柄
-//        mMatrixHandler= GLES20.glGetUniformLocation(mProgram,"vMatrix");
-//        //指定vMatrix的值
-//        GLES20.glUniformMatrix4fv(mMatrixHandler,1,false,mMVPMatrix,0);
-//        //获取顶点着色器的vPosition成员句柄
-//        mPositionHandle = GLES20.glGetAttribLocation(mProgram, "vPosition");
-//        //启用三角形顶点的句柄
-//        GLES20.glEnableVertexAttribArray(mPositionHandle);
-//        //准备三角形的坐标数据
-//        GLES20.glVertexAttribPointer(mPositionHandle, 3,
-//                GLES20.GL_FLOAT, false,
-//                0, vertexBuffer);
-//        //获取片元着色器的vColor成员的句柄
-//        mColorHandle = GLES20.glGetAttribLocation(mProgram, "aColor");
-//        //设置绘制三角形的颜色
-////        GLES20.glUniform4fv(mColorHandle, 2, color, 0);
-//        GLES20.glEnableVertexAttribArray(mColorHandle);
-//        GLES20.glVertexAttribPointer(mColorHandle,4,
-//                GLES20.GL_FLOAT,false,
-//                0,colorBuffer);
-//        //索引法绘制正方体
-//        GLES20.glDrawElements(GLES20.GL_TRIANGLES,index.length, GLES20.GL_UNSIGNED_SHORT,indexBuffer);
-//        //禁止顶点数组的句柄
-//        GLES20.glDisableVertexAttribArray(mPositionHandle);
+        mMatrixHandler= GLES20.glGetUniformLocation(mProgram,"vMatrix");
+        mPositionHandle = GLES20.glGetAttribLocation(mProgram, "vPosition");
+        mColorHandle = GLES20.glGetAttribLocation(mProgram, "aColor");
 
-        mPositionHandle= GLES20.glGetAttribLocation(mProgram,"vPosition");
-        mColorHandle=GLES20.glGetAttribLocation(mProgram,"aColor");
-        mMatrixHandler=GLES20.glGetUniformLocation(mProgram,"vMatrix");
-
-        //vertex
-        GLES20.glVertexAttribPointer(mPositionHandle,3,GLES20.GL_FLOAT,false,0,vertexBuffer);//步长改为0
         GLES20.glEnableVertexAttribArray(mPositionHandle);
-        //matrix
-        GLES20.glUniformMatrix4fv(mMatrixHandler,1,false,mMVPMatrix,0);
-        //color
         GLES20.glEnableVertexAttribArray(mColorHandle);
-        GLES20.glVertexAttribPointer(mColorHandle,4,GLES20.GL_FLOAT,false,0,colorBuffer);
 
-        //
+        GLES20.glUniformMatrix4fv(mMatrixHandler,1,false,mMVPMatrix,0);
+        GLES20.glUniform4fv(mColorHandle, 2, color, 0);
+        GLES20.glVertexAttribPointer(mPositionHandle, 3, GLES20.GL_FLOAT, false, 0, vertexBuffer);
+        GLES20.glVertexAttribPointer(mColorHandle,4, GLES20.GL_FLOAT,false, 0,colorBuffer);
+        //索引法绘制正方体
         GLES20.glDrawElements(GLES20.GL_TRIANGLES,index.length, GLES20.GL_UNSIGNED_SHORT,indexBuffer);
+        //禁止顶点数组的句柄
         GLES20.glDisableVertexAttribArray(mPositionHandle);
+
+//        mPositionHandle= GLES20.glGetAttribLocation(mProgram,"vPosition");
+//        mColorHandle=GLES20.glGetAttribLocation(mProgram,"aColor");
+//        mMatrixHandler=GLES20.glGetUniformLocation(mProgram,"vMatrix");
+//
+//        //vertex
+//        GLES20.glVertexAttribPointer(mPositionHandle,3,GLES20.GL_FLOAT,false,0,vertexBuffer);//步长改为0
+//        GLES20.glEnableVertexAttribArray(mPositionHandle);
+//        //matrix
+//        GLES20.glUniformMatrix4fv(mMatrixHandler,1,false,mMVPMatrix,0);
+//        //color
+//        GLES20.glEnableVertexAttribArray(mColorHandle);
+//        GLES20.glVertexAttribPointer(mColorHandle,4,GLES20.GL_FLOAT,false,0,colorBuffer);
+//
+//        //
+//        GLES20.glDrawElements(GLES20.GL_TRIANGLES,index.length, GLES20.GL_UNSIGNED_SHORT,indexBuffer);
+//        GLES20.glDisableVertexAttribArray(mPositionHandle);
     }
 
 

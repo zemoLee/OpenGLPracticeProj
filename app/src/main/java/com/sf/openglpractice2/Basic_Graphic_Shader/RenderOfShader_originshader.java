@@ -20,13 +20,14 @@ public class RenderOfShader_originshader implements GLSurfaceView.Renderer {
     private float[] mMVPMatrix=new float[16];
 
     public RenderOfShader_originshader() {
-        squre=new Squre_originshader();
     }
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+        squre=new Squre_originshader();
+
         GLES20.glEnable(GLES20.GL_DEPTH_TEST);
-        GLES20.glClearColor(1, 0, 0, 0);
+        GLES20.glClearColor(0, 0, 0, 0);
         GLES20.glHint(GL10.GL_PERSPECTIVE_CORRECTION_HINT,GL10.GL_FASTEST);
     }
 

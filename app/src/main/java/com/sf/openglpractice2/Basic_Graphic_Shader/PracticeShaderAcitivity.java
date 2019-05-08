@@ -26,8 +26,8 @@ public class PracticeShaderAcitivity extends AppCompatActivity implements View.O
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        init3DSqureCustom();
-//        init3DSqureShaderCustom();
-        init3DSqureShaderCustom2();
+        init3DSqureShaderCustom();
+//        init3DSqureShaderCustom2();
     }
 
     @Override
