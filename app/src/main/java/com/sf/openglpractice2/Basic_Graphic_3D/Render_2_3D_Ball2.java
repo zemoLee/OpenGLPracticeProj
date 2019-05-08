@@ -20,12 +20,12 @@ import javax.microedition.khronos.opengles.GL10;
  * @Date: 2019/4/29
  * @Des: //绘制球
  */
-public class Render_2_3D_Ball implements GLSurfaceView.Renderer {
+public class Render_2_3D_Ball2 implements GLSurfaceView.Renderer {
     private float angle = 0;
 
     Ball ball;
     GL10 gl;
-    public Render_2_3D_Ball() {
+    public Render_2_3D_Ball2() {
         ball = new Ball();
     }
 
@@ -88,7 +88,7 @@ public class Render_2_3D_Ball implements GLSurfaceView.Renderer {
         gl.glViewport(0, 0, width, height);
         gl.glMatrixMode(GL10.GL_PROJECTION);
         gl.glLoadIdentity();
-        gl.glFrustumf(-radio, radio, -1, 1, 1, 100);
+        gl.glFrustumf(-radio, radio, -1, 1, 1, 1000);
 //        GLU.gluPerspective(gl, 90.0f, (float) width / height, 0.1f, 50.0f);
     }
 
@@ -100,12 +100,12 @@ public class Render_2_3D_Ball implements GLSurfaceView.Renderer {
         gl.glLoadIdentity();
         GLU.gluLookAt(gl, 0, 0, 3, 0, 0, 0, 0, 1, 0);
 
-//        gl.glRotatef(angle, 1.0f, 1, 1);
-//        gl.glScalef(2.0f, 2.0f, 2.0f);
-//        gl.glTranslatef(0, 0, -1.8f);  //把坐标系往z轴负方向平移2.0f个单位
+        gl.glRotatef(angle, 1.0f, 1, 1);
+        gl.glScalef(2.0f, 2.0f, 2.0f);
+        gl.glTranslatef(0, 0, -1.8f);  //把坐标系往z轴负方向平移2.0f个单位
 
-//        setLight(gl);
-//        setMeterial(gl);
+        setLight(gl);
+        setMeterial(gl);
 
         gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
         gl.glEnableClientState(GL10.GL_NORMAL_ARRAY);
@@ -180,8 +180,8 @@ public class Render_2_3D_Ball implements GLSurfaceView.Renderer {
      * 球体
      */
     public class Ball {
-        private FloatBuffer vertexBuffer;  //顶点坐标数据缓冲
-        private FloatBuffer nomalBuffer;  //顶点法向量数据缓冲
+        private IntBuffer vertexBuffer;  //顶点坐标数据缓冲
+        private IntBuffer nomalBuffer;  //顶点法向量数据缓冲
         private ByteBuffer indexBuffer; //顶点构建索引数据缓冲
         public float angleX;  //沿x轴旋转角度
         int vertexCount =0;
@@ -195,23 +195,23 @@ public class Render_2_3D_Ball implements GLSurfaceView.Renderer {
          */
         public  Ball(){
             //1.顶点坐标初始化数据
-            ArrayList<Float> alVertex=getVertexList();
+            ArrayList<Integer> alVertex=getVertexList();
             vertexCount =alVertex.size()/3;  //顶点数量为坐标值数量的三分之一，因为一个顶点有三个坐标
             //2.将alVertix中的坐标值转存到一个int数组中
-            float[] vertices  =getVertexArrFromList(alVertex);
+            int[] vertices  =getVertexArrFromList(alVertex);
             //3.创建顶点坐标 数据缓冲
-             vertexBuffer= (FloatBuffer) bufferOfFloatUtil(vertices);
+             vertexBuffer= (IntBuffer) bufferOfIntUtil(vertices);
 
             //1.创建顶点法线 数据缓冲
-             nomalBuffer=(FloatBuffer) bufferOfFloatUtil(vertices);
+             nomalBuffer=(IntBuffer) bufferOfIntUtil(vertices);
 
             //1获取顶点 索引列表 List
-//            ArrayList<Float> vertexIndexList=getVertexIndexList();
+            ArrayList<Integer> vertexIndexList=getVertexIndexList();
             //2.获取顶点 索引数组 Arr
-//            byte vertexIndexArr []=getVertexIndexArrFromList(vertexIndexList);
-//            indexCount =vertexIndexList.size();
+            byte vertexIndexArr []=getVertexIndexArrFromList(vertexIndexList);
+            indexCount =vertexIndexList.size();
             //3.三角形构造数据索引缓冲
-//            indexBuffer= (ByteBuffer) bufferOfByteUtil(vertexIndexArr);
+            indexBuffer= (ByteBuffer) bufferOfByteUtil(vertexIndexArr);
         }
         /**
          * @Author  Jinhuan.Li
@@ -221,42 +221,21 @@ public class Render_2_3D_Ball implements GLSurfaceView.Renderer {
          * @Description: 方法描述： 绘制球
          */
         public void  drawSelf(GL10 gl){
-            gl.glTranslatef(0,0,-10);
+            //为画笔指定顶点坐标数据
             gl.glVertexPointer(
                     3 , //顶点坐标数量，三个坐标一个顶点
-                    GL10.GL_FLOAT ,  //顶点坐标数据类型
+                    GL10.GL_FIXED ,  //顶点坐标数据类型
                     0, //连续顶点之间的数据间隔
                     vertexBuffer //顶点坐标数据
             );
-            gl.glNormalPointer(GL10.GL_FLOAT, 0, nomalBuffer);
-//            gl.glDrawArrays(GL10.GL_TRIANGLES,0,vertexCount);
+            //为画笔指定顶点法线向量数据
+            gl.glNormalPointer(GL10.GL_FIXED, 0, nomalBuffer);
             //绘制图形，索引数组绘图
             gl.glDrawElements(
                     GL10.GL_TRIANGLES,  //以三角形的方式填充
                     indexCount, GL10.GL_UNSIGNED_BYTE, indexBuffer);
 
         }
-
-        /**
-         * 求sin值
-         *
-         * @param θ 角度值
-         * @return sinθ
-         */
-        private float sin(float θ) {
-            return (float) Math.sin(Math.toRadians(θ));
-        }
-
-        /**
-         * 求cos值
-         *
-         * @param θ 角度值
-         * @return cosθ
-         */
-        private float cos(float θ) {
-            return (float) Math.cos(Math.toRadians(θ));
-        }
-
 
 
         /**
@@ -266,38 +245,25 @@ public class Render_2_3D_Ball implements GLSurfaceView.Renderer {
          * @return
          * @Description: 方法描述：获取顶点坐标(x,y,z) 的列表 List
          */
-        private ArrayList<Float>  getVertexList(){
-            int r=1000;
-            int splitCount=20;
-            ArrayList<Float> vertixs = new ArrayList<>();// 存放顶点坐标的ArrayList
-            final float dθ = 360.f / splitCount;// 将球进行单位切分的角度
-            //垂直方向angleSpan度一份
-            for (float α = -90; α < 90; α = α + dθ) {
-                // 水平方向angleSpan度一份
-                for (float β = 0; β <= 360; β = β + dθ) {
-                    // 纵向横向各到一个角度后计算对应的此点在球面上的坐标
-                    float x0 = r * cos(α) * cos(β);
-                    float y0 = r * cos(α) * sin(β);
-                    float z0 = r * sin(α);
-                    float x1 = r * cos(α) * cos(β + dθ);
-                    float y1 = r * cos(α) * sin(β + dθ);
-                    float z1 = r * sin(α);
-                    float x2 = r * cos(α + dθ) * cos(β + dθ);
-                    float y2 = r * cos(α + dθ) * sin(β + dθ);
-                    float z2 = r * sin(α + dθ);
-                    float x3 = r * cos(α + dθ) * cos(β);
-                    float y3 = r * cos(α + dθ) * sin(β);
-                    float z3 = r * sin(α + dθ);
-                    // 将计算出来的XYZ坐标加入存放顶点坐标的ArrayList
-                    vertixs.add(x1);vertixs.add(y1);vertixs.add(z1);//p1
-                    vertixs.add(x3);vertixs.add(y3);vertixs.add(z3);//p3
-                    vertixs.add(x0);vertixs.add(y0);vertixs.add(z0);//p0
-                    vertixs.add(x1);vertixs.add(y1);vertixs.add(z1);//p1
-                    vertixs.add(x2);vertixs.add(y2);vertixs.add(z2);//p2
-                    vertixs.add(x3);vertixs.add(y3);vertixs.add(z3);//p3
+        final int angleSpan=20;
+        private ArrayList<Integer>  getVertexList(){
+            final int UNIT_SIZE=10000;
+            int scale=10;
+            ArrayList<Integer> alVertex=new ArrayList<Integer>();
+
+            for (int vAngle = -90; vAngle <= 90; vAngle=vAngle+angleSpan) {  //垂直方向angleSpan度一份
+                for (int hAngle = 0; hAngle <360; hAngle=hAngle+angleSpan ) { //水平方向angleSpan度一份
+                    //纵向横向各到一个角度后计算对应的此点在球面上的坐标
+                    double xozLength=scale*UNIT_SIZE*Math.cos(Math.toRadians(vAngle));
+                    int x=(int) (xozLength*Math.cos(Math.toRadians(hAngle)));
+                    int y=(int) (xozLength*Math.sin(Math.toRadians(hAngle))) ;
+                    int z=(int) (scale*UNIT_SIZE*Math.sin(Math.toRadians(vAngle)));
+                    alVertex.add(x);
+                    alVertex.add(y);
+                    alVertex.add(z);
                 }
             }
-            return vertixs;
+            return alVertex;
         }
         /**
          * @Author  Jinhuan.Li
@@ -306,9 +272,9 @@ public class Render_2_3D_Ball implements GLSurfaceView.Renderer {
          * @return
          * @Description: 方法描述：获取顶点 数组数据，List转 Arr
          */
-        private  float[] getVertexArrFromList(List<Float> alVertex){
+        private  int[] getVertexArrFromList(List<Integer> alVertex){
             //将alVertix中的坐标值转存到一个int数组中
-            float vertices []=new float[alVertex.size()];
+            int vertices []=new int[alVertex.size()];
             for (int i = 0; i < alVertex.size(); i++) {
                 vertices[i]=alVertex.get(i);
             }
@@ -323,31 +289,31 @@ public class Render_2_3D_Ball implements GLSurfaceView.Renderer {
          * @return
          * @Description: 方法描述：获取顶点索引列表List
          */
-//        private   ArrayList<Float> getVertexIndexList(){
-//            ArrayList<Integer> alIndex=new ArrayList<Integer>();
-//            int row=(180/angleSpan)+1; //球面切分的行数
-//            int col=360/angleSpan;  //球面切分的列数
-//            for (int i = 0; i < row; i++) {  //对每一行循环
-//                if(i>0 && i<row-1){
-//                    //中间行
-//                    for (int j = -1; j < col; j++) {
-//                        //中间行的两个相邻点与下一行的对应点构成三角形
-//                        int k=i*col+j;
-//                        alIndex.add(k+col);
-//                        alIndex.add(k+1);
-//                        alIndex.add(k);
-//                    }
-//                    for (int j = 0; j < col+1; j++) {
-//                        //中间行的两个相邻点与上一行的对应点构成三角形
-//                        int k=i*col+j;
-//                        alIndex.add(k-col);
-//                        alIndex.add(k-1);
-//                        alIndex.add(k);
-//                    }
-//                }
-//            }
-//            return alIndex;
-//        }
+        private   ArrayList<Integer> getVertexIndexList(){
+            ArrayList<Integer> alIndex=new ArrayList<Integer>();
+            int row=(180/angleSpan)+1; //球面切分的行数
+            int col=360/angleSpan;  //球面切分的列数
+            for (int i = 0; i < row; i++) {  //对每一行循环
+                if(i>0 && i<row-1){
+                    //中间行
+                    for (int j = -1; j < col; j++) {
+                        //中间行的两个相邻点与下一行的对应点构成三角形
+                        int k=i*col+j;
+                        alIndex.add(k+col);
+                        alIndex.add(k+1);
+                        alIndex.add(k);
+                    }
+                    for (int j = 0; j < col+1; j++) {
+                        //中间行的两个相邻点与上一行的对应点构成三角形
+                        int k=i*col+j;
+                        alIndex.add(k-col);
+                        alIndex.add(k-1);
+                        alIndex.add(k);
+                    }
+                }
+            }
+            return alIndex;
+        }
         /**
          * @Author  Jinhuan.Li
          * @method

@@ -10,7 +10,7 @@ import javax.microedition.khronos.opengles.GL10;
 public class Ball {
     private IntBuffer vertexBuffer;  //顶点坐标数据缓冲
     private IntBuffer nomalBuffer;  //顶点法向量数据缓冲
-    private ByteBuffer indexBuffer; //顶点构建索引数据缓冲
+    private IntBuffer indexBuffer; //顶点构建索引数据缓冲
     public float angleX;  //沿x轴旋转角度
     int vCount=0;
     int iCount=0;
@@ -74,12 +74,14 @@ public class Ball {
             }
         }
         iCount=alIndex.size();
-        byte indices []=new byte[iCount];
+        int indices []=new int[iCount];
         for (int i = 0; i < iCount; i++) {
-            indices[i]=alIndex.get(i).byteValue();
+            indices[i]=alIndex.get(i);
         }
         //三角形构造数据索引缓冲
-        indexBuffer=ByteBuffer.allocateDirect(iCount);  //由于indices是byte型的，索引不用乘以4
+        ByteBuffer ibb=ByteBuffer.allocateDirect(indices.length*4);
+        ibb.order(ByteOrder.nativeOrder());
+        indexBuffer=ibb.asIntBuffer();
         indexBuffer.put(indices);
         indexBuffer.position(0);
     }

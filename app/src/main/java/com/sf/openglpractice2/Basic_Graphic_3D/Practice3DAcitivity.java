@@ -26,13 +26,42 @@ public class Practice3DAcitivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSurfaceView=new GLSurfaceView(this);
-//        final Render_2_3D  render_2_3D=new Render_2_3D();
-      //  final Render_2_3D_Ball  render_2_3D_ball=new Render_2_3D_Ball();
+//        init3DSequre();
+        init3DBallCustom();
+//        init3DBallBlog();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mSurfaceView.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mSurfaceView.onPause();
+    }
+
+
+    private void  init3DSequre(){
+        final Render_2_3D  render_2_3D=new Render_2_3D();
+        mSurfaceView.setRenderer(render_2_3D);
+        setContentView(mSurfaceView);
+        mSurfaceView.setRenderMode(RENDERMODE_CONTINUOUSLY);
+    }
+
+    private void  init3DBallCustom(){
+        final Render_2_3D_Ball  render_2_3D_ball=new Render_2_3D_Ball();
+        mSurfaceView.setRenderer(render_2_3D_ball);
+        setContentView(mSurfaceView);
+        mSurfaceView.setRenderMode(RENDERMODE_CONTINUOUSLY);
+    }
+
+    private void  init3DBallBlog(){
         final Render_2_3D_Ball_Blog  render_2_3D_ball_blogl=new Render_2_3D_Ball_Blog();
-//        final Render_2_3D_Ball_with_touch  render_2_3D_ball_with_touch=new Render_2_3D_Ball_with_touch();
-//        mSurfaceView.setRenderer(render_2_3D_ball_with_touch);
         mSurfaceView.setRenderer(render_2_3D_ball_blogl);
-//        mSurfaceView.setRenderer(render_2_3D);
         mSurfaceView.setRenderMode(RENDERMODE_CONTINUOUSLY);
         setContentView(mSurfaceView);
         mSurfaceView. setOnTouchListener(new View.OnTouchListener() {
@@ -54,33 +83,16 @@ public class Practice3DAcitivity extends AppCompatActivity {
                 return true;                                      //事件成功返回true
 
             }
-       //         switch (event.getAction()) {
-         //           case MotionEvent.ACTION_DOWN://检测到点击事件时
+            //         switch (event.getAction()) {
+            //           case MotionEvent.ACTION_DOWN://检测到点击事件时
 //                        render_2_3D_ball_with_touch.roate(20f, 0, 1, 0); //绕y轴旋转
-           //     }
-             //   return true;
-           // }
+            //     }
+            //   return true;
+            // }
 
         });
-
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mSurfaceView.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mSurfaceView.onPause();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
 
 
 

@@ -10,6 +10,7 @@ public class Render_2_3D_Ball_Blog implements GLSurfaceView.Renderer{
     Ball ball=new Ball(4);  //创建圆
     public Render_2_3D_Ball_Blog(){}
 
+    @Override
     public void onDrawFrame(GL10 gl) {
         gl.glEnable(GL10.GL_CULL_FACE) ; //打开背面剪裁
         gl.glShadeModel(GL10.GL_SMOOTH);  //开始平滑着色
@@ -31,6 +32,7 @@ public class Render_2_3D_Ball_Blog implements GLSurfaceView.Renderer{
         gl.glLoadIdentity();
     }
 
+    @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
         gl.glViewport(0, 0, width, height);   //设置视口大小和位置
         gl.glMatrixMode(GL10.GL_PROJECTION);   //设置矩阵为投影矩阵
@@ -39,6 +41,7 @@ public class Render_2_3D_Ball_Blog implements GLSurfaceView.Renderer{
         gl.glFrustumf(-ratio, ratio, -1, 1, 1, 10);  //设置投影模式
     }
 
+    @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         gl.glDisable(GL10.GL_DITHER);     //关闭抗抖动
         gl.glHint(GL10.GL_PERSPECTIVE_CORRECTION_HINT, GL10.GL_FASTEST);
