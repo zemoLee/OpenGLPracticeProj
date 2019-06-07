@@ -25,7 +25,13 @@
                 <!--<category android:name="android.intent.category.LAUNCHER"/>-->
             <!--</intent-filter>-->
         </activity>
-        <activity android:name=".practice1.Practice_1_Activity"/>
+        <activity android:name=".practice1.Practice_1_Activity">
+            <intent-filter>
+            <action android:name="android.intent.action.MAIN"/>
+
+            <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".practice2.Practice_2_Activity"/>
         <activity android:name=".practice3.Practice_3_Activity"/>
         <activity android:name=".practice4.Practice_4_Activity"/>
@@ -73,11 +79,11 @@
         </activity>
 
         <activity android:name="com.sf.openglpractice2.Basic_Texture.single_texture_gl20.SingleTexture_GL20_Activity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN"/>-->
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--</intent-filter>-->
         </activity>
 
 
