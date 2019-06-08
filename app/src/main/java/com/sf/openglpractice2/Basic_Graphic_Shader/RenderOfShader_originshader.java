@@ -3,6 +3,7 @@ package com.sf.openglpractice2.Basic_Graphic_Shader;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
+import android.util.Log;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -20,15 +21,16 @@ public class RenderOfShader_originshader implements GLSurfaceView.Renderer {
     private float[] mMVPMatrix=new float[16];
 
     public RenderOfShader_originshader() {
+        Log.d("FGLRender", "onSurfaceCreated 线程名1 ="+ Thread.currentThread().getName());
     }
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         squre=new Squre_originshader();
-
+        Log.d("FGLRender", "onSurfaceCreated 线程名2 ="+ Thread.currentThread().getName());
         GLES20.glEnable(GLES20.GL_DEPTH_TEST);
         GLES20.glClearColor(0, 0, 0, 0);
-        GLES20.glHint(GL10.GL_PERSPECTIVE_CORRECTION_HINT,GL10.GL_FASTEST);
+        GLES20.glHint(GL10.GL_PERSPECTIVE_CORRECTION_HINT,GL10.GL_FASTEST);//修正函数
     }
 
     @Override

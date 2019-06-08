@@ -25,13 +25,15 @@ public class FGLRender implements GLSurfaceView.Renderer {
 
     Cube cube;
     public FGLRender() {
-//        cube=new Cube();
+        cube=new Cube();
+        Log.d("FGLRender", "onSurfaceCreated 线程名1 ="+ Thread.currentThread().getName());
     }
 
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-        cube=new Cube();
+//        cube=new Cube();
+        Log.d("FGLRender", "onSurfaceCreated 线程名2 ="+ Thread.currentThread().getName());
         GLES20.glClearColor(1,0,0,1.0f);
         //开启深度测试
         GLES20.glEnable(GLES20.GL_DEPTH_TEST);
