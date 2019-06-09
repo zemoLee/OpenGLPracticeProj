@@ -25,7 +25,8 @@
                 <!--<category android:name="android.intent.category.LAUNCHER"/>-->
             <!--</intent-filter>-->
         </activity>
-        <activity android:name=".practice1.Practice_1_Activity">
+        <activity android:name=".practice1.Practice_1_Activity"
+            android:screenOrientation="landscape">
             <intent-filter>
             <action android:name="android.intent.action.MAIN"/>
 

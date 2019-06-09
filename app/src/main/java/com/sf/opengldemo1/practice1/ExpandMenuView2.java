@@ -1,6 +1,8 @@
 package com.sf.opengldemo1.practice1;
 
 import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Color;
@@ -11,21 +13,26 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.OvershootInterpolator;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author: Jinhuan.Li
  * @Date: 2019/6/7
  * @Des: //TODO
  */
-public class ExpandMenuView extends LinearLayout {
+public class ExpandMenuView2 extends RelativeLayout {
     private Context mContext;
 
     enum State {
         OPEN, CLOSE
     }
 
-    private State mCurrentState = State.OPEN;
+    private State mCurrentState = State.CLOSE;
     private View mCurrentClickView;
     private int viewLeft;
     private int viewRight;
@@ -41,31 +48,69 @@ public class ExpandMenuView extends LinearLayout {
     boolean isFirstLayout = true;
     boolean isAnimFinish = false;
 
-    public ExpandMenuView(Context context) {
+    public ExpandMenuView2(Context context) {
         this(context, null);
     }
 
-    public ExpandMenuView(Context context, @Nullable AttributeSet attrs) {
+    public ExpandMenuView2(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
     ValueAnimator anim;
+    AnimatorSet animatorSetOpen;
+    AnimatorSet animatorSetClose;
 
     private void init(Context context) {
         this.mContext = context;
-        setOrientation(HORIZONTAL);
         anim = ValueAnimator.ofFloat(0.0f, 1.0f);
+        animatorSetOpen = new AnimatorSet();
+        animatorSetClose = new AnimatorSet();
+//        animatorSetOpen.setInterpolator(interpolator)   ;
+//        animatorSetClose.setInterpolator(interpolator);
+        animatorSetOpen.setDuration(300);
+        animatorSetClose.setDuration(300);
 
     }
 
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-//        setMenuBackground();
-        Log.d("ExpandMenuView", "onMeasure ");
-        int childCount = getChildCount();
 
+    private OvershootInterpolator interpolator=new OvershootInterpolator(){
+        @Override
+        public float getInterpolation(float t) {
+            Log.e("ExpandMenuView", "animatorSetOpen1 getInterpolation= "+t);
+
+            float frac=t;
+            float left = 0;
+            if(frac!=1){
+
+            raseWidth = (totalWidth) * frac;
+            if (mCurrentState == State.CLOSE) {
+
+                left = getLeft() + raseWidth;
+                if (left >= viewRight - 80 - childMinWidth) {
+                    left = viewRight - 80 - childMinWidth;
+                }
+                Log.e("ExpandMenuView", "left="+left+"   viewLeft=" + viewLeft + "  viewRight=" + viewRight + "  totalWidth=" + totalWidth + "raseWidth= " + raseWidth + "   total=" + total + "    dymicvalue=" + frac + "      left=" + left + " ");
+            } else {
+                left = viewRight - raseWidth;
+                if (left >= viewRight - 80 - childMinWidth) {
+                    left = viewRight - 80 - childMinWidth;
+                }
+                Log.e("ExpandMenuView", "left="+left+"  viewLeft=" + viewLeft + "  viewRight=" + viewRight + "  totalWidth=" + totalWidth + "raseWidth= " + raseWidth + "   total=" + total + "    dymicvalue=" + frac + "      left=" + left + " ");
+
+            }
+
+            layout((int) left, getTop(), viewRight, getBottom());
+            }
+
+            return super.getInterpolation(t);
+        }
+    };
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        setMenuBackground();
+        int childCount = getChildCount();
         for (int i = 0; i < childCount; i++) {
             View item = getChildAt(i);
             item.setOnClickListener(new OnClickListener() {
@@ -82,39 +127,21 @@ public class ExpandMenuView extends LinearLayout {
                         mCurrentState = State.CLOSE;
                         closeMenus();
                     }
-                    setCloseShowView(mCurrentClickView);
-//                    mHandler.sendEmptyMessageDelayed(0,310);
+//                    setCloseShowView(mCurrentClickView);
                 }
             });
         }
-        int height = measureSize(200, heightMeasureSpec);
-        int width = measureSize(40, widthMeasureSpec);
-        viewHight = height;
-        viewWidth = width;
-        setMeasuredDimension((int)viewWidth, (int)viewHight);
-
-
     }
 
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-        Log.d("ExpandMenuView", "onSizeChanged ");
-//        viewWidth=w;
-        setMeasuredDimension((int)w, (int)h);
-        if(isAnimFinish){
-            setCloseShowView(mCurrentClickView);
-        }
-    }
 
     private int measureSize(int defaultSize, int measureSpec) {
         int result = defaultSize;
-        int specMode = View.MeasureSpec.getMode(measureSpec);
-        int specSize = View.MeasureSpec.getSize(measureSpec);
+        int specMode = MeasureSpec.getMode(measureSpec);
+        int specSize = MeasureSpec.getSize(measureSpec);
 
-        if (specMode == View.MeasureSpec.EXACTLY) {
+        if (specMode == MeasureSpec.EXACTLY) {
             result = specSize;
-        } else if (specMode == View.MeasureSpec.AT_MOST) {
+        } else if (specMode == MeasureSpec.AT_MOST) {
             result = Math.min(result, specSize);
         }
         return result;
@@ -128,35 +155,14 @@ public class ExpandMenuView extends LinearLayout {
         if (isFirstLayout) {
             viewRight = getRight();
             viewLeft = getLeft();
-            totalWidth = viewRight - viewLeft;
+//            totalWidth = viewRight - viewLeft;
             raseWidth = totalWidth;
             isFirstLayout = false;
             if (childCount > 0) {
                 childMinWidth = getChildAt(childCount - 1).getMeasuredWidth();
             }
+            totalWidth=childCount*childMinWidth;
         }
-
-        Log.e("ExpandMenuView", "onLayout totalWidth=" + totalWidth + " " + "viewLeft=" + viewLeft + "  viewRight=" + viewRight);
-//        for (int i = 0; i < childCount; i++) {
-//            View item = getChildAt(i);
-//            item.setOnClickListener(new OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    mCurrentClickView = v;
-//                    if (mOnExpandMenuItemClickListener != null) {
-//                        mOnExpandMenuItemClickListener.onItemClick(v);
-//                    }
-//                    if (mCurrentState == State.CLOSE) {
-//                        mCurrentState = State.OPEN;
-//                        openMenus();
-//                    } else {
-//                        mCurrentState = State.CLOSE;
-//                        closeMenus();
-//                    }
-////                    setCloseShowView(mCurrentClickView);
-//                }
-//            });
-//        }
 
 
     }
@@ -170,69 +176,67 @@ public class ExpandMenuView extends LinearLayout {
         setBackground(gd);
     }
 
+    List<Animator> objectAnimatorListOpen = new ArrayList<>();
+    List<Animator> objectAnimatorListClose = new ArrayList<>();
 
     public void openMenus() {
-        if (anim == null) {
-            anim = ValueAnimator.ofFloat(0.0f, 1.0f);
+        if (objectAnimatorListOpen.isEmpty()) {
+            for (int i = 0; i < getChildCount(); i++) {
+                View child = getChildAt(i);
+                ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(child, "translationX", 0, -300 * i);
+                objectAnimatorListOpen.add(objectAnimator);
+            }
         }
-        anim.setDuration(300);
-        anim.setRepeatCount(0);
-       total = viewRight - viewLeft;
-        anim.addUpdateListener(animer);
-        anim.start();
+        animatorSetOpen.playTogether(objectAnimatorListOpen);
 
+        animatorSetOpen.start();
     }
 
     int total = 0;
 
     public void closeMenus() {
-        if (anim == null) {
-            anim = ValueAnimator.ofFloat(0.0f, 1.0f);
+        if (objectAnimatorListClose.isEmpty()) {
+            for (int i = 0; i < getChildCount(); i++) {
+                View child = getChildAt(i);
+                ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(child, "translationX", child.getTranslationX(), 0);
+                objectAnimator.addUpdateListener(animer);
+                objectAnimatorListClose.add(objectAnimator);
+            }
         }
-        anim.setDuration(300);
-        anim.setRepeatCount(0);
-        total = viewRight - viewLeft;
-        anim.addUpdateListener(animer);
-        anim.start();
+        animatorSetClose.playTogether(objectAnimatorListClose);
 
+        animatorSetClose.start();
     }
+
     private ValueAnimator.AnimatorUpdateListener animer = new ValueAnimator.AnimatorUpdateListener() {
         @Override
         public void onAnimationUpdate(ValueAnimator animation) {
             float frac = (Float) animation.getAnimatedValue();
-            Log.d("ExpandMenuView","frac="+frac);
+            Log.d("ExpandMenuView", "frac=" + frac);
             float left = 0;
             raseWidth = (totalWidth) * frac;
             if (mCurrentState == State.CLOSE) {
 
-                left=viewLeft+raseWidth;
-                if(left>=viewRight-80-childMinWidth){
-                    left=viewRight-80-childMinWidth;
+                left = viewLeft + raseWidth;
+                if (left >= viewRight - 80 - childMinWidth) {
+                    left = viewRight - 80 - childMinWidth;
                 }
                 Log.e("ExpandMenuView", "viewLeft=" + viewLeft + "  viewRight=" + viewRight + "  totalWidth=" + totalWidth + "raseWidth= " + raseWidth + "   total=" + total + "    dymicvalue=" + frac + "      left=" + left + " ");
             } else {
-                left=viewRight-raseWidth;
-                if(left>=viewRight-80-childMinWidth){
-                    left=viewRight-80-childMinWidth;
+                left = viewRight - raseWidth;
+                if (left >= viewRight - 80 - childMinWidth) {
+                    left = viewRight - 80 - childMinWidth;
                 }
                 Log.e("ExpandMenuView", "viewLeft=" + viewLeft + "  viewRight=" + viewRight + "  totalWidth=" + totalWidth + "raseWidth= " + raseWidth + "   total=" + total + "    dymicvalue=" + frac + "      left=" + left + " ");
 
             }
-            if(frac==1){
-                isAnimFinish=true;
-            }
+
             layout((int) left, getTop(), viewRight, getBottom());
 
         }
     };
 
-    Handler mHandler =new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            setCloseShowView(mCurrentClickView);
-        }
-    };
+
 
     public void setCloseShowView(View view) {
         Log.e("setCloseShowView", "view ID=" + view.getId());
@@ -246,7 +250,6 @@ public class ExpandMenuView extends LinearLayout {
                     child.setVisibility(VISIBLE);
                 } else {
                     child.setVisibility(GONE);
-                    postInvalidateDelayed(5000);
                 }
             } else {
                 child.setVisibility(VISIBLE);

@@ -5,14 +5,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.sf.opengldemo1.practice1.ExpandMenuView
+    <com.sf.opengldemo1.practice1.ExpandMenuView2
         android:id="@+id/expanded_menu"
-        android:layout_width="500dp"
-        android:layout_height="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
-        android:background="@drawable/bg_left_round_corner_layers"
-        android:gravity="center"
+        android:gravity="right"
         android:padding="8dp"
         >
       <Button
@@ -30,5 +29,5 @@
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:text="btn3"/>
-    </com.sf.opengldemo1.practice1.ExpandMenuView>
+    </com.sf.opengldemo1.practice1.ExpandMenuView2>
 </RelativeLayout>

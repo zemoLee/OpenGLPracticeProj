@@ -25,8 +25,8 @@ public class Practice_1_Activity extends AppCompatActivity {
 
 
     private void  init(){
-        ExpandMenuView  expandMenuView=findViewById(R.id.expanded_menu);
-        expandMenuView.setOnExpandMenuItemClickListener(new ExpandMenuView.OnExpandMenuItemClickListener() {
+        ExpandMenuView2  expandMenuView=findViewById(R.id.expanded_menu);
+        expandMenuView.setOnExpandMenuItemClickListener(new ExpandMenuView2.OnExpandMenuItemClickListener() {
             @Override
             public void onItemClick(View v) {
                 switch (v.getId()){
