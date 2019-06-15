@@ -50,12 +50,7 @@ public class SingleTextureRender_GL20 implements GLSurfaceView.Renderer {
     };
 
     private float[] mViewMatrix = new float[16];
-    private float[] mProjectMatrix = new float[]{
-                1f, 0f, 0f, 0f,
-                0f, 1f, 0f, 0f,
-                0f, 0f, 1f, 0f,
-                0f, 0f, 0f, 1f,
-    };
+    private float[] mProjectMatrix = new float[16];
     private float[] mMVPMatrix = new float[16];
 //            {
 //            1f, 0f, 0f, 0f,
@@ -83,24 +78,31 @@ public class SingleTextureRender_GL20 implements GLSurfaceView.Renderer {
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-        GLES20.glClearColor(0.0f, 1.0f, 1.0f, 0.0f);
+        gl.glClearColor(1.0f,1.0f,1.0f,0.0f);
         GLES20.glEnable(GL10.GL_DEPTH_TEST);
-        GLES20.glHint(GL10.GL_PERSPECTIVE_CORRECTION_HINT,GL10.GL_FASTEST);//修正函数
+        GLES20.glHint(GL10.GL_PERSPECTIVE_CORRECTION_HINT, GL10.GL_FASTEST);//修正函数
 
 
         vertexBuffer = (FloatBuffer) BufferUtils.bufferFloatIntUtil(points);
         textureCoordBuffer = (FloatBuffer) BufferUtils.bufferFloatIntUtil(textureCoord);
-        int vertexShader = loadShader(GLES20.GL_VERTEX_SHADER, vertext_shader);
-        int fragmentShader = loadShader(GLES20.GL_FRAGMENT_SHADER, fragment_shader);
+
+        int vertexShader = loadShader(GLES20.GL_VERTEX_SHADER, VERTEX_SHADER);
+        int fragmentShader = loadShader(GLES20.GL_FRAGMENT_SHADER, FRAGMENT_SHADER);
+//        int vertexShader=ShaderUitls.loadShader(GLES20.GL_VERTEX_SHADER,vertext_shader);
+//        int fragmentShader=ShaderUitls.loadShader(GLES20.GL_VERTEX_SHADER,fragment_shader);
+//        mProgram = ShaderUitls.createProgram(VERTEX_SHADER, FRAGMENT_SHADER);
         mProgram = GLES20.glCreateProgram();
         GLES20.glAttachShader(mProgram, vertexShader);
         GLES20.glAttachShader(mProgram, fragmentShader);
         GLES20.glLinkProgram(mProgram);
         GLES20.glUseProgram(mProgram);
 
+
         loadTexture(gl);
 
     }
+
+
 
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
@@ -139,9 +141,9 @@ public class SingleTextureRender_GL20 implements GLSurfaceView.Renderer {
     private void drawAndUseShader(GL10 gl) {
         GLES20.glUseProgram(mProgram);
 
-        mPositionHandle = getUniform("a_vertex");
+        mPositionHandle = getAttribute("a_vertex");
         mMatrixHandle = getUniform("u_Matrix");
-        mTextureCoordHandle = getAttribute("a_texturecoord");
+        mTextureCoordHandle = getAttribute("a_textureD");
         mTextureUnit = getUniform("u_TextureUnit");
 
         GLES20.glUniformMatrix4fv(mMatrixHandle, 1, false, mProjectMatrix, 0);
@@ -151,7 +153,7 @@ public class SingleTextureRender_GL20 implements GLSurfaceView.Renderer {
         //加载顶点坐标
         GLES20.glVertexAttribPointer(mPositionHandle, 3, GLES20.GL_FLOAT, false, 0, vertexBuffer);
         //加载纹理坐标
-        GLES20.glVertexAttribPointer(mTextureCoordHandle, 3, GLES20.GL_FLOAT, false, 0, textureCoordBuffer);
+        GLES20.glVertexAttribPointer(mTextureCoordHandle, 2, GLES20.GL_FLOAT, false, 0, textureCoordBuffer);
         //将纹理单元传递片段着色器的u_TextureUnit
         GLES20.glUniform1i(mTextureUnit, 0);
         //绘制
@@ -185,31 +187,29 @@ public class SingleTextureRender_GL20 implements GLSurfaceView.Renderer {
 
     protected int getUniform(String name) {
         return GLES20.glGetUniformLocation(mProgram, name);
+
     }
 
     protected int getAttribute(String name) {
         return GLES20.glGetAttribLocation(mProgram, name);
     }
 
-    public static String vertext_shader = "" +
-            "uniform mat4  u_Matrix;" +  //变换矩阵
-            "attribute vec4 a_vertex;" + //顶点坐标数据
-            "attribute vec2 a_texturecoord;" + //纹理坐标数据
-//            "attribute vec4 a_normal; "+//法线坐标
-            "varying vec2  v_textureCoord;" +// 传递给片元的纹理数据
-            "void main(){" +
-            "v_texturecoord=a_texturecoord;" +
-            "gl_Position=u_Matrix * a_vertex;" +
-            "}" +
-            "";
-    public static String fragment_shader = "" +
-            "precision mediump float;" +
-            "varying vec2 v_texturecoord;" +
-            "uniform sampler2D u_TextureUnit;" +
-            "void main(){" +
-            "gl_FragColor = texture2D(u_TextureUnit, v_texturecoord);" +
-            "}" +
-            "";
+    public static String VERTEX_SHADER =
+            "uniform mat4  u_Matrix;" + "\n" + //变换矩阵
+                    "attribute vec4 a_vertex;" + "\n" +//顶点坐标数据
+                    "attribute vec2 a_textureD;" + "\n" + //纹理坐标数据
+                    "varying vec2  v_textureD;" + "\n" +// 传递给片元的纹理数据
+                    "void main(){" + "\n" +
+                    "v_textureD=a_textureD;" + "\n" +
+                    "gl_Position=u_Matrix * a_vertex;" + "\n" +
+                    "}" + "\n";
+    public static String FRAGMENT_SHADER =
+            "precision mediump float;" + "\n" +
+                    "varying vec2 v_textureD;" + "\n" +
+                    "uniform sampler2D u_TextureUnit;" + "\n" +
+                    "void main(){" + "\n" +
+                    "gl_FragColor = texture2D(u_TextureUnit, v_textureD);" + "\n" +
+                    "}" + "\n";
 
 
 }
