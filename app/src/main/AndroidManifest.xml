@@ -80,6 +80,13 @@
         </activity>
 
         <activity android:name="com.sf.openglpractice2.Basic_Texture.single_texture_gl20.SingleTexture_GL20_Activity">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN"/>-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--</intent-filter>-->
+        </activity>
+        <activity android:name="com.sf.openglpractice2.Basic_Texture.multi_texture_gl20.MultiTexture_GL20_Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

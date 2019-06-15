@@ -12,8 +12,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b03700dd-6d22-4206-b97c-d62ec59df793" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sf/openglpractice2/Basic_Texture/multi_texture_gl20/MultiTexture_GL20_Activity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sf/openglpractice2/Basic_Texture/multi_texture_gl20/MultiTexture_Render.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sf/openglpractice2/Basic_Texture/multi_texture_gl20/ShaderUitls.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable-v24/test_bitmap2.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sf/openglpractice2/Basic_Texture/single_texture_gl20/SingleTextureRender_GL20.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sf/openglpractice2/Basic_Texture/single_texture_gl20/SingleTextureRender_GL20.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sf/openglpractice2/Basic_Texture/single_texture_gl20/ShaderHelper.kt" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,11 +40,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/sf/openglpractice2/Basic_Texture/single_texture_gl20/SingleTextureRender_GL20.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="125">
-              <caret line="108" selection-start-line="108" selection-end-line="108" />
+            <state relative-caret-position="49">
+              <caret line="182" selection-start-line="182" selection-end-line="189" selection-end-column="5" />
               <folding>
                 <element signature="e#6190#6191#0" expanded="true" />
                 <element signature="e#6255#6256#0" expanded="true" />
@@ -49,10 +54,55 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/sf/openglpractice2/Basic_Texture/single_texture_gl20/SingleTexture_GL20_Activity.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/sf/openglpractice2/Basic_Texture/multi_texture_gl20/MultiTexture_GL20_Activity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="15" column="43" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
+          <provider editor-type-id="android-manifest" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="215">
+              <caret line="53" column="73" selection-start-line="53" selection-start-column="73" selection-end-line="53" selection-end-column="73" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/sf/openglpractice2/Basic_Texture/multi_texture_gl20/MultiTexture_Render.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="198">
+              <caret line="154" column="105" selection-start-line="154" selection-start-column="105" selection-end-line="154" selection-end-column="105" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#6872#6873#0" expanded="true" />
+                <element signature="e#6937#6938#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/sf/openglpractice2/Basic_Texture/multi_texture_gl20/ShaderUitls.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="135">
-              <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+              <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/sf/openglpractice2/Basic_Texture/single_texture_gl20/SingleTexture_GL20_Activity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="17" selection-start-line="17" selection-end-line="18" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -69,44 +119,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/sf/openglpractice2/Basic_Texture/single_texture_gl20/ShaderUitls.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-443">
+            <state relative-caret-position="335">
               <caret line="30" selection-start-line="30" selection-end-line="30" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/sf/openglpractice2/Basic_Texture/single_texture_gl20/ShaderHelper.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="615">
-              <caret line="51" column="16" selection-start-line="51" selection-start-column="16" selection-end-line="51" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/sf/opengldemo1/practice10/helper/ShaderHelper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="97" column="27" selection-start-line="97" selection-start-column="22" selection-end-line="97" selection-end-column="34" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/sf/opengldemo1/practice8/helper/ShaderHelper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="283">
-              <caret line="97" column="26" selection-start-line="97" selection-start-column="22" selection-end-line="97" selection-end-column="34" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/sf/opengldemo1/practice5/helper/ShaderHelper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="97" column="28" selection-start-line="97" selection-start-column="22" selection-end-line="97" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -131,6 +145,13 @@
       </file>
     </leaf>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="FindInProjectRecents">
     <findStrings>
       <find>viewWidth</find>
@@ -140,8 +161,9 @@
       <find>totalWidth</find>
       <find>ShaderUitls</find>
       <find>mProgram</find>
-      <find>createProgram</find>
       <find>mProjectMatrix</find>
+      <find>createProgram</find>
+      <find>textureCoordBuffer</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -155,21 +177,25 @@
         <option value="$PROJECT_DIR$/src/main/java/com/sf/opengldemo1/practice1/ExpandMenuView2.java" />
         <option value="$PROJECT_DIR$/src/main/res/layout/practice_1.xml" />
         <option value="$PROJECT_DIR$/../gradle.properties" />
-        <option value="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/src/main/java/com/sf/openglpractice2/Basic_Texture/single_texture_gl20/ShaderHelper.kt" />
         <option value="$PROJECT_DIR$/src/main/java/com/sf/openglpractice2/Basic_Texture/single_texture_gl20/SingleTextureRender_GL20.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/sf/openglpractice2/Basic_Texture/multi_texture_gl20/multi_texture_gl20.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/sf/openglpractice2/Basic_Texture/multi_texture_gl20/ShaderUitls.java" />
+        <option value="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/sf/openglpractice2/Basic_Texture/multi_texture_gl20/MultiTexture_GL20_Activity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/sf/openglpractice2/Basic_Texture/multi_texture_gl20/MultiTexture_Render.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="y" value="25" />
+  <component name="ProjectFrameBounds">
+    <option name="y" value="26" />
     <option name="width" value="1440" />
     <option name="height" value="877" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
+    <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
@@ -384,7 +410,7 @@
               <item name="sf" type="462c0819:PsiDirectoryNode" />
               <item name="openglpractice2" type="462c0819:PsiDirectoryNode" />
               <item name="Basic_Texture" type="462c0819:PsiDirectoryNode" />
-              <item name="single_texture_gl10" type="462c0819:PsiDirectoryNode" />
+              <item name="multi_texture_gl20" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="app" type="b2602c69:ProjectViewProjectNode" />
@@ -405,7 +431,87 @@
       </pane>
       <pane id="PackagesPane" />
       <pane id="Scope" />
-      <pane id="AndroidView" />
+      <pane id="AndroidView">
+        <subPane>
+          <expand>
+            <path>
+              <item name="app" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+            </path>
+            <path>
+              <item name="app" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+            </path>
+            <path>
+              <item name="app" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="com" type="cbb59c9e:AndroidPsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="app" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="com" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="sf" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="app" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="com" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="sf" type="462c0819:PsiDirectoryNode" />
+              <item name="openglpractice2" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="app" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="com" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="sf" type="462c0819:PsiDirectoryNode" />
+              <item name="openglpractice2" type="462c0819:PsiDirectoryNode" />
+              <item name="Basic_Texture" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="app" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="com" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="sf" type="462c0819:PsiDirectoryNode" />
+              <item name="openglpractice2" type="462c0819:PsiDirectoryNode" />
+              <item name="Basic_Texture" type="462c0819:PsiDirectoryNode" />
+              <item name="multi_texture_gl20" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="app" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="com" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="sf" type="462c0819:PsiDirectoryNode" />
+              <item name="openglpractice2" type="462c0819:PsiDirectoryNode" />
+              <item name="Basic_Texture" type="462c0819:PsiDirectoryNode" />
+              <item name="single_texture_gl20" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="app" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+            </path>
+            <path>
+              <item name="app" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="drawable" type="ddeffd01:AndroidResFolderTypeNode" />
+            </path>
+            <path>
+              <item name="app" type="1abcf292:AndroidViewProjectNode" />
+              <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -415,6 +521,7 @@
     <property name="SHOW_ALL_PROCESSES" value="false" />
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
     <property name="device.picker.selection" value="0123456789ABCDEF" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/res/drawable-v24" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="not.eligible.for.single.variant.sync" value="true" />
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
@@ -424,7 +531,11 @@
       <recent name="com.sf.openglpractice2.Basic_Texture.single_texture_gl20" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.sf.openglpractice2.Basic_Texture.multi_texture_gl20" />
       <recent name="com.sf.opengldemo1.practice1" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/res/drawable-v24" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -515,11 +626,11 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="26" width="1440" height="877" extended-state="6" />
+    <frame x="0" y="26" width="1440" height="877" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.3204578" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.23819743" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Build Variants" order="3" side_tool="true" />
       <window_info id="Image Layers" order="4" />
@@ -534,9 +645,9 @@
       <window_info anchor="bottom" id="Android Profiler" order="3" />
       <window_info anchor="bottom" id="Event Log" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Build" order="5" weight="0.30955413" />
-      <window_info anchor="bottom" x="36" y="302" width="1398" height="259" id="Terminal" order="6" visible="true" weight="0.3566879" />
+      <window_info anchor="bottom" x="36" y="302" width="1398" height="259" id="Terminal" order="6" weight="0.21273886" />
       <window_info anchor="bottom" id="Run" order="7" />
-      <window_info anchor="bottom" id="Debug" order="8" weight="0.5082803" />
+      <window_info active="true" anchor="bottom" id="Debug" order="8" visible="true" weight="0.18216561" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="right" id="Gradle" order="2" />
@@ -628,18 +739,6 @@
           <properties />
           <option name="timeStamp" value="47" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/sf/openglpractice2/Basic_Texture/single_texture_gl20/ShaderUitls.java</url>
-          <line>30</line>
-          <properties />
-          <option name="timeStamp" value="48" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/sf/openglpractice2/Basic_Texture/single_texture_gl20/ShaderUitls.java</url>
-          <line>24</line>
-          <properties />
-          <option name="timeStamp" value="49" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/sf/opengldemo1/practice1/ExpandMenuView2.java</url>
           <line>196</line>
@@ -651,6 +750,16 @@
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>mTextures[1]</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>mTextures[0]</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>source</expression-string>
         <language-id>JAVA</language-id>
@@ -683,16 +792,6 @@
       </expression>
       <expression>
         <expression-string>vertexBuffer</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>mPositionHandle</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>mProgram</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -890,14 +989,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
-      <provider editor-type-id="android-manifest" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="91" selection-start-line="91" selection-end-line="91" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/sf/opengldemo1/practice8/program/CubeShaderProgram.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
@@ -1013,20 +1104,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/sf/openglpractice2/Basic_Texture/single_texture_gl20/ShaderUitls.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-443">
-          <caret line="30" selection-start-line="30" selection-end-line="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/sf/openglpractice2/Basic_Texture/single_texture_gl20/SingleTexture_GL20_Activity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/sf/openglpractice2/Basic_Texture/single_texture_gl10/SingleTexture_GL10_Activity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -1041,13 +1118,64 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/sf/openglpractice2/Basic_Texture/single_texture_gl20/ShaderUitls.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="335">
+          <caret line="30" selection-start-line="30" selection-end-line="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/sf/openglpractice2/Basic_Texture/single_texture_gl20/SingleTexture_GL20_Activity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="17" selection-start-line="17" selection-end-line="18" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="215">
+          <caret line="53" column="73" selection-start-line="53" selection-start-column="73" selection-end-line="53" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/sf/openglpractice2/Basic_Texture/multi_texture_gl20/ShaderUitls.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/sf/openglpractice2/Basic_Texture/multi_texture_gl20/MultiTexture_GL20_Activity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="43" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/sf/openglpractice2/Basic_Texture/single_texture_gl20/SingleTextureRender_GL20.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="108" selection-start-line="108" selection-end-line="108" />
+        <state relative-caret-position="49">
+          <caret line="182" selection-start-line="182" selection-end-line="189" selection-end-column="5" />
           <folding>
             <element signature="e#6190#6191#0" expanded="true" />
             <element signature="e#6255#6256#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/sf/openglpractice2/Basic_Texture/multi_texture_gl20/MultiTexture_Render.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="154" column="105" selection-start-line="154" selection-start-column="105" selection-end-line="154" selection-end-column="105" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#6872#6873#0" expanded="true" />
+            <element signature="e#6937#6938#0" expanded="true" />
           </folding>
         </state>
       </provider>
