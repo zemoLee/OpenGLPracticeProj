@@ -29,8 +29,8 @@ public class SingleTextureRender_GL20 implements GLSurfaceView.Renderer {
     private Context mContext;
     //顶点坐标
     private float[] points = new float[]{
-            -1.0f, -1.0f, 0.0f,
             -1.0f, 1.0f, 0.0f,
+            -1.0f, -1.0f, 0.0f,
             1.0f, -1.0f, 0.0f,
             1.0f, 1.0f, 0.0f,
     };
@@ -44,20 +44,14 @@ public class SingleTextureRender_GL20 implements GLSurfaceView.Renderer {
     //纹理映射坐标
     private float[] textureCoord = new float[]{
             0.0f, 0.0f,
-            0.0f, -1.0f,
+            0.0f, 1.0f,
+            1.0f, 1.0f,
             1.0f, 0.0f,
-            1.0f, -1.0f,
     };
 
     private float[] mViewMatrix = new float[16];
     private float[] mProjectMatrix = new float[16];
     private float[] mMVPMatrix = new float[16];
-//            {
-//            1f, 0f, 0f, 0f,
-//            0f, 1f, 0f, 0f,
-//            0f, 0f, 1f, 0f,
-//            0f, 0f, 0f, 1f,
-//    };
 
     private FloatBuffer vertexBuffer;
     private FloatBuffer textureCoordBuffer;
@@ -85,17 +79,19 @@ public class SingleTextureRender_GL20 implements GLSurfaceView.Renderer {
 
         vertexBuffer = (FloatBuffer) BufferUtils.bufferFloatIntUtil(points);
         textureCoordBuffer = (FloatBuffer) BufferUtils.bufferFloatIntUtil(textureCoord);
-
+        //方法1
         int vertexShader = loadShader(GLES20.GL_VERTEX_SHADER, VERTEX_SHADER);
         int fragmentShader = loadShader(GLES20.GL_FRAGMENT_SHADER, FRAGMENT_SHADER);
-//        int vertexShader=ShaderUitls.loadShader(GLES20.GL_VERTEX_SHADER,vertext_shader);
-//        int fragmentShader=ShaderUitls.loadShader(GLES20.GL_VERTEX_SHADER,fragment_shader);
-//        mProgram = ShaderUitls.createProgram(VERTEX_SHADER, FRAGMENT_SHADER);
         mProgram = GLES20.glCreateProgram();
         GLES20.glAttachShader(mProgram, vertexShader);
         GLES20.glAttachShader(mProgram, fragmentShader);
         GLES20.glLinkProgram(mProgram);
         GLES20.glUseProgram(mProgram);
+        //方法2
+//        int vertexShader=ShaderUitls.loadShader(GLES20.GL_VERTEX_SHADER,vertext_shader);
+//        int fragmentShader=ShaderUitls.loadShader(GLES20.GL_VERTEX_SHADER,fragment_shader);
+//        mProgram = ShaderUitls.createProgram(VERTEX_SHADER, FRAGMENT_SHADER);
+
 
 
         loadTexture(gl);
@@ -108,10 +104,9 @@ public class SingleTextureRender_GL20 implements GLSurfaceView.Renderer {
     public void onSurfaceChanged(GL10 gl, int width, int height) {
         GLES20.glViewport(0, 0, width, height);
         float ratio = (float) width / height;
-//        Matrix.frustumM(mProjectMatrix,0,-ratio,ratio,-1,1,3,20);
-//        Matrix.setLookAtM(mViewMatrix,0,-5.0f,5f,10.0f,0f,0f,0f,0f,1f,0f);
-        Matrix.orthoM(mProjectMatrix, 0, -ratio, ratio, -1f, 1f, -1f, 1f);
-//        Matrix.multiplyMM(mMVPMatrix,0,mProjectMatrix,0,mViewMatrix,0);
+        Matrix.frustumM(mProjectMatrix,0,-ratio,ratio,-1,1,1,20);
+        Matrix.setLookAtM(mViewMatrix,0,0.0f,0.0f,2.0f,0f,0f,0f,0f,1f,0f);
+        Matrix.multiplyMM(mMVPMatrix,0,mProjectMatrix,0,mViewMatrix,0);
     }
 
     @Override
@@ -146,7 +141,7 @@ public class SingleTextureRender_GL20 implements GLSurfaceView.Renderer {
         mTextureCoordHandle = getAttribute("a_textureD");
         mTextureUnit = getUniform("u_TextureUnit");
 
-        GLES20.glUniformMatrix4fv(mMatrixHandle, 1, false, mProjectMatrix, 0);
+        GLES20.glUniformMatrix4fv(mMatrixHandle, 1, false, mMVPMatrix, 0);
 
         GLES20.glEnableVertexAttribArray(mPositionHandle);
         GLES20.glEnableVertexAttribArray(mTextureCoordHandle);
