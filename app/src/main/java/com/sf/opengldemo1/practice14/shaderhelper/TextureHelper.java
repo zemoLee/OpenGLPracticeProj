@@ -12,7 +12,7 @@ import android.util.Log;
  * Created by youyang on 15-4-17.
  */
 public class TextureHelper {
-    public static final String TAG = "TextureHelper";
+    public static final String TAG = "TextureHelperKt";
 
     /**
      * 备用方法2

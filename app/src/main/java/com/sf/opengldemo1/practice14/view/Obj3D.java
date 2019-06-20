@@ -222,7 +222,7 @@ public class Obj3D {
      *获取纹理
      */
     private void  createTexture(Context context){
-//        textureId = TextureHelper.createTexture(BitmapFactory.decodeStream(context.getAssets().open("3dres/"+obj.mtl.map_Kd)));
+//        textureId = TextureHelperKt.createTexture(BitmapFactory.decodeStream(context.getAssets().open("3dres/"+obj.mtl.map_Kd)));
         if(mtl!=null){
             try {
                 textureId=TextureHelper.createTexture(BitmapFactory.decodeStream(context.getAssets().open("3dobj/"+this.mtl.map_Kd)));

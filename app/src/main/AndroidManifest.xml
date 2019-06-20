@@ -47,7 +47,7 @@
         <activity android:name=".practice13.Practice_13_Activity"/>
         <activity android:name=".practice14.Practice_14_Activity"/>
         <!--practice 2-->
-        <activity android:name="com.sf.openglpractice2.Basic_Graphic_2D.Practice1Acitivity">
+        <activity android:name="com.sf.openglpractice2.Practice1_Basic_Graphic_2D.Practice1Acitivity">
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN"/>-->
 
@@ -55,7 +55,7 @@
             <!--</intent-filter>-->
         </activity>
 
-        <activity android:name="com.sf.openglpractice2.Basic_Graphic_3D.Practice3DAcitivity">
+        <activity android:name="com.sf.openglpractice2.Practice2_Basic_Graphic_3D.Practice3DAcitivity">
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN"/>-->
 
@@ -63,7 +63,7 @@
             <!--</intent-filter>-->
         </activity>
 
-        <activity android:name="com.sf.openglpractice2.Basic_Graphic_Shader.PracticeShaderAcitivity">
+        <activity android:name="com.sf.openglpractice2.Practice3_Basic_Graphic_Shader.PracticeShaderAcitivity">
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN"/>-->
 
@@ -71,7 +71,7 @@
             <!--</intent-filter>-->
         </activity>
 
-        <activity android:name="com.sf.openglpractice2.Basic_Texture.single_texture_gl10.SingleTexture_GL10_Activity">
+        <activity android:name="com.sf.openglpractice2.Practice4_Basic_Texture.single_texture_gl10.SingleTexture_GL10_Activity">
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN"/>-->
 
@@ -79,14 +79,22 @@
             <!--</intent-filter>-->
         </activity>
 
-        <activity android:name="com.sf.openglpractice2.Basic_Texture.single_texture_gl20.SingleTexture_GL20_Activity">
+        <activity android:name="com.sf.openglpractice2.Practice4_Basic_Texture.single_texture_gl20.SingleTexture_GL20_Activity">
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN"/>-->
 
                 <!--<category android:name="android.intent.category.LAUNCHER"/>-->
             <!--</intent-filter>-->
         </activity>
-        <activity android:name="com.sf.openglpractice2.Basic_Texture.multi_texture_gl20.MultiTexture_GL20_Activity">
+        <activity android:name="com.sf.openglpractice2.Practice4_Basic_Texture.multi_texture_gl20.MultiTexture_GL20_Activity">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN"/>-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--</intent-filter>-->
+        </activity>
+
+        <activity android:name="com.sf.openglpractice2.Practice5_Basic_Filter.filer1_basic.GrayFilter1_Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

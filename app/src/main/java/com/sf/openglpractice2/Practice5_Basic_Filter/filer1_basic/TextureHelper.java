@@ -1,4 +1,4 @@
-package com.sf.opengldemo1.practice12.helper;
+package com.sf.openglpractice2.Practice5_Basic_Filter.filer1_basic;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -7,6 +7,8 @@ import android.graphics.Canvas;
 import android.opengl.GLES20;
 import android.opengl.GLUtils;
 import android.util.Log;
+
+import com.sf.opengldemo1.practice12.helper.LogConfig;
 
 /**
  * Created by youyang on 15-4-17.
