@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.sf.openglpractice2.Practice4_Basic_Texture.single_texture_gl20.SingleTextureRender_GL20;
 
 import static android.opengl.GLSurfaceView.RENDERMODE_CONTINUOUSLY;
 

@@ -151,7 +151,8 @@ public class MultiTexture_Render implements GLSurfaceView.Renderer {
 
         //获取纹理对象1
         mTextures[0] = intBuffer.get(0);
-        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[0]);  //这个地方绑定纹理无效，还是需要在绘制的时候，再去绑定，才能画出不同的纹理
+        //--注意----这个地方绑定纹理无效，还是需要在绘制的时候，再去绑定，才能画出不同的纹理
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[0]);
         GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR);
         GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
         GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, mBitmap1, 0);

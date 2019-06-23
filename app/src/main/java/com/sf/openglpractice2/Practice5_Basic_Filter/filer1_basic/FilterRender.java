@@ -1,9 +1,13 @@
 package com.sf.openglpractice2.Practice5_Basic_Filter.filer1_basic;
 
 import android.content.Context;
+import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 
-import com.sf.opengldemo1.R;
+import com.sf.openglpractice2.Practice5_Basic_Filter.filer1_basic.filter.GrayFilter;
+import com.sf.openglpractice2.Practice5_Basic_Filter.filer1_basic.filter.InverseFilter;
+import com.sf.openglpractice2.Practice5_Basic_Filter.filer1_basic.filter.LightupFilter;
+import com.sf.openglpractice2.Practice5_Basic_Filter.filer1_basic.filter.TransformFilter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,15 +31,20 @@ public class FilterRender implements GLSurfaceView.Renderer {
     int outputHeight;
     public FilterRender(Context context) {
         this.context=context;
-        filterList.add(new BaseFilter());
-        filterList.add(new GrayFilter());
+        filterList.add(new BaseFilter(context,BaseFilter.VERTEX_SHADER,BaseFilter.FRAGMENT_SHADER));
+        filterList.add(new GrayFilter(context,BaseFilter.VERTEX_SHADER,GrayFilter.FRAGMENT_SHADER2));
+        filterList.add(new GrayFilter(context,BaseFilter.VERTEX_SHADER, InverseFilter.INVERSE_SHADER));
+//        filterList.add(new LightupFilter(context,BaseFilter.VERTEX_SHADER, LightupFilter.LIGHTUP_SHADER));
+        filterList.add(new LightupFilter(context,BaseFilter.VERTEX_SHADER, LightupFilter.LIGHTUP_SHADER2));
+        filterList.add(new TransformFilter(context,BaseFilter.VERTEX_SHADER, TransformFilter.TRANSFORM_SHADER2));
         mCurrentFilter = filterList.get(0);
     }
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+        gl.glClearColor(1.0f,1.0f,1.0f,0.0f);
         mCurrentFilter.onCreate();
-        mTexture = TextureHelper.loadTexture(context,new int[]{R.drawable.test});
-        mCurrentFilter.mTexture = mTexture;
+//        mTexture = TextureHelper.loadTexture(context,new int[]{R.drawable.test});
+//        mCurrentFilter.mTexture = mTexture;
     }
 
     @Override
@@ -47,6 +56,7 @@ public class FilterRender implements GLSurfaceView.Renderer {
 
     @Override
     public void onDrawFrame(GL10 gl) {
+        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
         if (isChange) {
             mCurrentFilter = filterList.get(drawIndex);
             for (BaseFilter filter : filterList) {
@@ -56,7 +66,7 @@ public class FilterRender implements GLSurfaceView.Renderer {
             }
             mCurrentFilter.onCreate();
             mCurrentFilter.onSizeChanged(outputWidth, outputHeight);
-            mCurrentFilter.mTexture = mTexture;
+//            mCurrentFilter.mTexture = mTexture;
             isChange = false;
         }
         mCurrentFilter.onDraw();

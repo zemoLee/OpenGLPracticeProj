@@ -18,6 +18,7 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import static android.opengl.GLES10.GL_SRC_COLOR;
+import static android.opengl.GLES20.GL_ONE_MINUS_SRC_ALPHA;
 
 /**
  * @Author: Jinhuan.Li
@@ -105,7 +106,7 @@ public class SingleTextureRender_GL20 implements GLSurfaceView.Renderer {
         GLES20.glViewport(0, 0, width, height);
         float ratio = (float) width / height;
         Matrix.frustumM(mProjectMatrix,0,-ratio,ratio,-1,1,1,20);
-        Matrix.setLookAtM(mViewMatrix,0,0.0f,0.0f,2.0f,0f,0f,0f,0f,1f,0f);
+        Matrix.setLookAtM(mViewMatrix,0,0.0f,0.0f,3.0f,0f,0f,0f,0f,1f,0f);
         Matrix.multiplyMM(mMVPMatrix,0,mProjectMatrix,0,mViewMatrix,0);
     }
 
@@ -162,7 +163,7 @@ public class SingleTextureRender_GL20 implements GLSurfaceView.Renderer {
         GLES20.glEnable(GLES20.GL_TEXTURE_2D);
         //混合开关
         GLES20.glEnable(GLES20.GL_BLEND);
-        GLES20.glBlendFunc(GLES20.GL_ONE, GL_SRC_COLOR);
+        GLES20.glBlendFunc(GLES20.GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         //创建纹理贴图对象
         IntBuffer intBuffer = IntBuffer.allocate(1);
         GLES20.glGenTextures(1, intBuffer);
