@@ -4,10 +4,13 @@ import android.content.Context;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 
+import com.sf.openglpractice2.Practice5_Basic_Filter.filer1_basic.filter.ColdFilter;
+import com.sf.openglpractice2.Practice5_Basic_Filter.filer1_basic.filter.GaussBlurFilter;
 import com.sf.openglpractice2.Practice5_Basic_Filter.filer1_basic.filter.GrayFilter;
 import com.sf.openglpractice2.Practice5_Basic_Filter.filer1_basic.filter.InverseFilter;
 import com.sf.openglpractice2.Practice5_Basic_Filter.filer1_basic.filter.LightupFilter;
 import com.sf.openglpractice2.Practice5_Basic_Filter.filer1_basic.filter.TransformFilter;
+import com.sf.openglpractice2.Practice5_Basic_Filter.filer1_basic.filter.WarmFilter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +40,9 @@ public class FilterRender implements GLSurfaceView.Renderer {
 //        filterList.add(new LightupFilter(context,BaseFilter.VERTEX_SHADER, LightupFilter.LIGHTUP_SHADER));
         filterList.add(new LightupFilter(context,BaseFilter.VERTEX_SHADER, LightupFilter.LIGHTUP_SHADER2));
         filterList.add(new TransformFilter(context,BaseFilter.VERTEX_SHADER, TransformFilter.TRANSFORM_SHADER2));
+        filterList.add(new WarmFilter(context,BaseFilter.VERTEX_SHADER, WarmFilter.WARM_SHADER));
+        filterList.add(new ColdFilter(context,BaseFilter.VERTEX_SHADER, ColdFilter.COLD_SHADER));
+        filterList.add(new GaussBlurFilter(context,BaseFilter.VERTEX_SHADER, GaussBlurFilter.GAUSS_BLUR_SHADER));
         mCurrentFilter = filterList.get(0);
     }
     @Override
