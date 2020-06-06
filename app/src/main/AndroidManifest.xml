@@ -95,14 +95,20 @@
         </activity>
 
         <activity android:name="com.sf.openglpractice2.Practice5_Basic_Filter.filer1_basic.GrayFilter1_Activity">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN"/>-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER"/>-->
+<!--            </intent-filter>-->
+        </activity>
+
+        <activity android:name="com.sf.openglpractice2.Practice7_camera.CameraActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
-
     </application>
 
 </manifest>

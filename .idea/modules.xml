@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/OpenGLPracticeProj.iml" filepath="$PROJECT_DIR$/OpenGLPracticeProj.iml" group="OpenGLPracticeProj" />
+      <module fileurl="file://$PROJECT_DIR$/app/OpenGLPracticeProj-app.iml" filepath="$PROJECT_DIR$/app/OpenGLPracticeProj-app.iml" group="OpenGLPracticeProj/app" />
       <module fileurl="file://$PROJECT_DIR$/OpenglProject.iml" filepath="$PROJECT_DIR$/OpenglProject.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
