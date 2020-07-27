@@ -10,6 +10,7 @@
         android:id="@+id/control_rl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
         android:orientation="horizontal">
 
         <Button
@@ -25,7 +26,7 @@
             android:text="停止" />
 
         <Button
-            android:id="@+id/switchFontBack"
+            android:id="@+id/switchFontBackBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="切换" />
@@ -37,5 +38,6 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/control_rl" />
+
 
 </android.support.constraint.ConstraintLayout>

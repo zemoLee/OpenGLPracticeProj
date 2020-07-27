@@ -102,13 +102,30 @@
 <!--            </intent-filter>-->
         </activity>
 
-        <activity android:name="com.sf.openglpractice2.Practice7_camera.CameraActivity">
+        <activity android:name="com.sf.openglpractice2.Practice7_camera.CameraGlsurfaceviewActivity">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN"/>-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER"/>-->
+<!--            </intent-filter>-->
+        </activity>
+
+        <activity android:name="com.sf.openglpractice2.Practice8_egl.CameraTextureViewEGLActivity">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN"/>-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER"/>-->
+<!--            </intent-filter>-->
+        </activity>
+
+        <activity android:name="com.sf.openglpractice2.Practice9_recoder.CameraGlsurfaceviewRecorderActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

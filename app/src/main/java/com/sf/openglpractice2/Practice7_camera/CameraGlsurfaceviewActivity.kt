@@ -9,15 +9,19 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import com.sf.opengldemo1.R
+import javax.microedition.khronos.egl.EGL10
+import javax.microedition.khronos.egl.EGLConfig
+import javax.microedition.khronos.egl.EGLContext
+import javax.microedition.khronos.egl.EGLDisplay
 
 /**
  *  相机预览画面
  */
-class CameraActivity : AppCompatActivity(), View.OnClickListener, CameraRender.SufacetextureListener, SurfaceTexture.OnFrameAvailableListener {
+class CameraGlsurfaceviewActivity : AppCompatActivity(), View.OnClickListener, CameraRender.SufacetextureListener, SurfaceTexture.OnFrameAvailableListener {
 
     val TAG="CameraRender-->"
 
-    val preview by lazy {
+    val cameraPreview by lazy {
         findViewById<GLSurfaceView>(R.id.preview)
     }
     val startPreview by lazy {
@@ -27,17 +31,17 @@ class CameraActivity : AppCompatActivity(), View.OnClickListener, CameraRender.S
         findViewById<Button>(R.id.stopPreviewBtn)
     }
     val switchPreview by lazy {
-        findViewById<Button>(R.id.switchFontBack)
+        findViewById<Button>(R.id.switchFontBackBtn)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.practice_7_camera)
+        setContentView(R.layout.practice_7_camera_glsurfaceview)
 
         val render = CameraRender()
-        preview.setEGLContextClientVersion(2)
-        preview.setRenderer(render)
-        preview.renderMode = RENDERMODE_WHEN_DIRTY
+        cameraPreview.setEGLContextClientVersion(2)
+        cameraPreview.setRenderer(render)
+        cameraPreview.renderMode = RENDERMODE_WHEN_DIRTY
 
         render.sufacetextureListener = this
 
@@ -55,12 +59,17 @@ class CameraActivity : AppCompatActivity(), View.OnClickListener, CameraRender.S
             R.id.stopPreviewBtn -> {
                 CameraHelper.stopCamera()
             }
-            R.id.switchFontBack -> {
+            R.id.switchFontBackBtn -> {
                 CameraHelper.switchCamera()
             }
+
         }
     }
 
+    /**
+     * 回调回来的是自定义的oes外部纹理
+     * @param surfaceTexture SurfaceTexture
+     */
     override fun onSufaceTextureInit(surfaceTexture: SurfaceTexture) {
         Log.d(TAG,"[onSufaceTextureInit]")
 //        CameraHelper.openCamera()
@@ -73,7 +82,7 @@ class CameraActivity : AppCompatActivity(), View.OnClickListener, CameraRender.S
 
     override fun onFrameAvailable(surfaceTexture: SurfaceTexture?) {
         Log.d(TAG,"[onFrameAvailable]")
-        preview.requestRender()
+        cameraPreview.requestRender()
     }
 
 

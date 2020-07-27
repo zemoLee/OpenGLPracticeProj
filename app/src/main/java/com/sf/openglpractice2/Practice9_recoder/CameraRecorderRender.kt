@@ -1,11 +1,11 @@
-package com.sf.openglpractice2.Practice7_camera
+package com.sf.openglpractice2.Practice9_recoder
 
 import android.graphics.SurfaceTexture
-import android.opengl.GLES11Ext
-import android.opengl.GLES20
-import android.opengl.GLSurfaceView
-import android.opengl.Matrix
+import android.opengl.*
+import android.os.Environment
 import android.util.Log
+import com.sf.openglpractice2.Practice9_recoder.recoder2.TextureMovieEncoder
+import java.io.File
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.FloatBuffer
@@ -15,9 +15,9 @@ import javax.microedition.khronos.opengles.GL10
 /**
  * 相机渲染器
  */
-class CameraRender : GLSurfaceView.Renderer {
+class CameraRecorderRender : GLSurfaceView.Renderer {
     companion object {
-        val TAG="CameraRender-->"
+        val TAG = "CameraRender-->"
 
 
         /**
@@ -114,15 +114,39 @@ class CameraRender : GLSurfaceView.Renderer {
     private var mMVPMatrix = FloatArray(16)
     private var mTempMatrix = FloatArray(16)
 
+
+    /**
+     * 录制
+     */
+    private var mVideoEncoder: TextureMovieEncoder? = null
+    private var mRecordingEnabled = false
+    private var mRecordingStatus = 0
+    private val RECORDING_OFF = 0
+    private val RECORDING_ON = 1
+    private val RECORDING_RESUMED = 2
+    private var mOutputFile: File? = null
+    private var mPreviewWidth = 0
+    private var mPreviewHeight = 0
+
     init {
         Matrix.setIdentityM(mProjectMatrix, 0);
         Matrix.setIdentityM(mCameraMatrix, 0);
         Matrix.setIdentityM(mMVPMatrix, 0);
         Matrix.setIdentityM(mTempMatrix, 0);
+
+        mVideoEncoder = TextureMovieEncoder()
     }
 
     override fun onSurfaceCreated(gl: GL10?, config: EGLConfig?) {
-        Log.d(TAG,"[onSurfaceCreated]")
+        Log.d(TAG, "[onSurfaceCreated]")
+
+        mRecordingEnabled = mVideoEncoder?.isRecording ?: false
+        mRecordingStatus = if (mRecordingEnabled) {
+            RECORDING_RESUMED
+        } else {
+            RECORDING_OFF
+        }
+
 
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 0.0f)
 
@@ -138,30 +162,100 @@ class CameraRender : GLSurfaceView.Renderer {
 
 
     override fun onSurfaceChanged(gl: GL10?, width: Int, height: Int) {
-        Log.d(TAG,"[onSurfaceChanged] width:$width  height:$height")
+        Log.d(TAG, "[onSurfaceChanged] width:$width  height:$height")
+
+        mPreviewWidth = width
+        mPreviewHeight = height
+
+        //准备好一些离屏buffer ,
+        prepareFramebuffer(mPreviewWidth,mPreviewHeight)
 
         GLES20.glViewport(0, 0, width, height)
         Matrix.scaleM(mMVPMatrix, 0, 1f, -1f, 1f)
-        val ratio = width*1f / height*1f
+        val ratio = width * 1f / height * 1f
 
         Matrix.orthoM(mProjectMatrix, 0, -1f, 1f, -ratio, ratio, 1f, 7f)// 3和7代表远近视点与眼睛的距离，非坐标点
         Matrix.setLookAtM(mCameraMatrix, 0, 0f, 0f, 3f, 0f, 0f, 0f, 0f, 1.0f, 0.0f)// 3代表眼睛的坐标点
         Matrix.multiplyMM(mMVPMatrix, 0, mProjectMatrix, 0, mCameraMatrix, 0)
     }
 
+
+    private val transfrom = FloatArray(16)
+
     override fun onDrawFrame(gl: GL10?) {
-        Log.d(TAG,"[onDrawFrame]")
+        Log.d(TAG, "[onDrawFrame]")
 
 //        useProgram()
 
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT or GLES20.GL_DEPTH_BUFFER_BIT)
 
+
+
         //srufaceTexture 获取新的纹理数据
         mSurfaceTexture?.updateTexImage()
+        mSurfaceTexture?.getTransformMatrix(transfrom)
 
+
+
+        /**
+         * 录制
+         */
+        if (mRecordingEnabled) {
+            when (mRecordingStatus) {
+                RECORDING_OFF -> {
+                    Log.d(TAG, "START recording")
+                    mOutputFile = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "mycamera-record-test" + System.currentTimeMillis() + ".mp4")
+                    Log.d(TAG, "file path = " + mOutputFile?.getAbsolutePath())
+                    // start recording
+                    mVideoEncoder!!.startRecording(TextureMovieEncoder.EncoderConfig(
+                            mOutputFile, mPreviewHeight, mPreviewWidth, 1000000, EGL14.eglGetCurrentContext()))
+                    mRecordingStatus = RECORDING_ON
+                }
+                RECORDING_RESUMED -> {
+                    Log.d(TAG, "RESUME recording")
+                    mVideoEncoder!!.updateSharedContext(EGL14.eglGetCurrentContext())
+                    mRecordingStatus = RECORDING_ON
+                }
+                RECORDING_ON -> {
+                }
+                else -> throw RuntimeException("unknown status $mRecordingStatus")
+            }
+        } else {
+            when (mRecordingStatus) {
+                RECORDING_ON, RECORDING_RESUMED -> {
+                    // stop recording
+                    Log.d(TAG, "STOP recording")
+                    mVideoEncoder!!.stopRecording()
+                    mRecordingStatus = RECORDING_OFF
+                }
+                RECORDING_OFF -> {
+                }
+                else -> throw RuntimeException("unknown status $mRecordingStatus")
+            }
+        }
+
+        //绑定上。就会绘制到fbo中， ---》重新切换到绑定的framebuffer，后续的绘制，就会绘制到这个缓冲区中
+//        GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, mFrameBuffer)
+//
+//        //原始oes绘制
+//        mMVPMatrixHandle?.let { GLES20.glUniformMatrix4fv(it, 1, false, mMVPMatrix, 0) }
+//        GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, mPosCoordinate.size / 2)
+//
+//        //解除绑定
+//        GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, 0)
+
+
+//        //原始oes绘制
         mMVPMatrixHandle?.let { GLES20.glUniformMatrix4fv(it, 1, false, mMVPMatrix, 0) }
-
         GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, mPosCoordinate.size / 2)
+
+
+        mVideoEncoder!!.setTextureId(mTextureId)
+//        mVideoEncoder!!.setTextureId(mOffscreenTextureId)
+
+        mVideoEncoder!!.frameAvailable(mSurfaceTexture)
+
+
 
     }
 
@@ -169,11 +263,18 @@ class CameraRender : GLSurfaceView.Renderer {
      * 创建surfaceTexure，用于相机数据
      * @return SurfaceTexture
      */
+    private var mTextureId: Int = 0
+
     fun createSufaceTexure(): SurfaceTexture {
 
-        Log.d(TAG,"[createSufaceTexure]")
+        Log.d(TAG, "[createSufaceTexure]")
 
-        val surfaceTexture = SurfaceTexture(createOESTextureObject())
+        //生成纹理
+        mTextureId = createOESTextureObject()
+        //创建内部的surfaceView
+//        mSurfaceTexture = SurfaceTexture(mTextureId)
+
+        val surfaceTexture = SurfaceTexture(mTextureId)
 
         //初始化sufaceTexure 回调
         surfaceTexture.let { sufacetextureListener?.onSufaceTextureInit(it) }
@@ -187,7 +288,7 @@ class CameraRender : GLSurfaceView.Renderer {
      * 2.片元程序
      */
     private fun creatProgram() {
-        Log.d(TAG,"[creatProgram]")
+        Log.d(TAG, "[creatProgram]")
 
         //先编译shader代码资源
         val vertexShader: Int = loadShader(GLES20.GL_VERTEX_SHADER, vertexShaderCode)
@@ -213,7 +314,7 @@ class CameraRender : GLSurfaceView.Renderer {
      *  使用程序
      */
     private fun useProgram() {
-        Log.d(TAG,"[useProgram]")
+        Log.d(TAG, "[useProgram]")
 
         mProgram?.let { GLES20.glUseProgram(it) }
 
@@ -241,7 +342,7 @@ class CameraRender : GLSurfaceView.Renderer {
      * @return Boolean
      */
     private fun createOESTextureObject(): Int {
-        Log.d(TAG,"[createOESTextureObject]")
+        Log.d(TAG, "[createOESTextureObject]")
 
         //创建一个接收相机数据的纹理
         val textureArray = IntArray(1)
@@ -287,5 +388,73 @@ class CameraRender : GLSurfaceView.Renderer {
         fb.put(buffer)
         fb.position(0)
         return fb
+    }
+
+
+    fun changeRecordingState(isRecording: Boolean) {
+        Log.d(TAG, "changeRecordingState: was $mRecordingEnabled now $isRecording")
+        mRecordingEnabled = isRecording
+    }
+
+    fun setPreviewSize(previewWidth: Int, previewHeight: Int) {
+        mPreviewWidth = previewWidth
+        mPreviewHeight = previewHeight
+//        calculateMatrix()
+    }
+
+    private var mOffscreenTextureId = 0
+    private var mFrameBuffer = 0
+    private var mRenderBuffer = 0
+    private fun prepareFramebuffer(width: Int, height: Int) {
+        val values = IntArray(1)
+        values[0] = 55
+        GLES20.glGenTextures(1, values, 0)
+        //        GlUtil.checkGlError("glGenTextures");
+        mOffscreenTextureId = values[0]
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mOffscreenTextureId)
+        //        GlUtil.checkGlError("glBindTexture " + mOffscreenTextureId);
+// Create texture storage.
+        GLES20.glTexImage2D(GLES20.GL_TEXTURE_2D, 0, GLES20.GL_RGBA, width, height, 0,
+                GLES20.GL_RGBA, GLES20.GL_UNSIGNED_BYTE, null)
+        // Set parameters.  We're probably using non-power-of-two dimensions, so
+// some values may not be available for use.
+        GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER,
+                GLES20.GL_NEAREST.toFloat())
+        GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER,
+                GLES20.GL_LINEAR.toFloat())
+        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S,
+                GLES20.GL_CLAMP_TO_EDGE)
+        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T,
+                GLES20.GL_CLAMP_TO_EDGE)
+        //        GlUtil.checkGlError("glTexParameter");
+// Create framebuffer object and bind it.
+        GLES20.glGenFramebuffers(1, values, 0)
+        mFrameBuffer = values[0]
+        GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, mFrameBuffer)
+        //        GlUtil.checkGlError("glBindFramebuffer " + mFrameBuffer);
+// Create a depth buffer and bind it.
+        GLES20.glGenRenderbuffers(1, values, 0)
+        mRenderBuffer = values[0]
+        GLES20.glBindRenderbuffer(GLES20.GL_RENDERBUFFER, mRenderBuffer)
+        //        GlUtil.checkGlError("glBindFramebuffer " + mRenderBuffer);
+// Allocate storage for the depth buffer.
+        GLES20.glRenderbufferStorage(GLES20.GL_RENDERBUFFER, GLES20.GL_DEPTH_COMPONENT16, width, height)
+        //        GlUtil.checkGlError("glRenderbufferStorage");
+// Attach the depth buffer and the texture (color buffer) to the framebuffer object.
+// 将renderBuffer挂载到frameBuffer的depth attachment 上
+        GLES20.glFramebufferRenderbuffer(GLES20.GL_FRAMEBUFFER, GLES20.GL_DEPTH_ATTACHMENT, GLES20.GL_RENDERBUFFER, mRenderBuffer)
+        //        GlUtil.checkGlError("glFramebufferRenderbuffer");
+// 将text2d挂载到frameBuffer的color attachment上
+        GLES20.glFramebufferTexture2D(GLES20.GL_FRAMEBUFFER, GLES20.GL_COLOR_ATTACHMENT0, GLES20.GL_TEXTURE_2D, mOffscreenTextureId, 0)
+        //        GlUtil.checkGlError("glFramebufferTexture2D");
+// See if GLES is happy with all this.
+        val status = GLES20.glCheckFramebufferStatus(GLES20.GL_FRAMEBUFFER)
+        if (status != GLES20.GL_FRAMEBUFFER_COMPLETE) {
+            throw java.lang.RuntimeException("Framebuffer not complete, status=$status")
+        }
+        // 先不使用FrameBuffer
+// Switch back to the default framebuffer.
+        GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, 0)
+        //        GlUtil.checkGlError("prepareFramebuffer done");
     }
 }
