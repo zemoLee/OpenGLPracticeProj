@@ -37,14 +37,15 @@ public class Practice_14_Activity extends AppCompatActivity {
 //            filters.add(f);
 //        }
 //        render14. setFilters(filters);
-        surfaceView14 = new PracticeSurfaceView14(this);
-        render14 = new PracticeRender14(this,getResources());
-        if (isSupportGLES20()) {
-            surfaceView14.setEGLContextClientVersion(2);
-            surfaceView14.setRenderer(render14);
-            surfaceView14.setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
-        }
-        setContentView(surfaceView14);
+
+//        surfaceView14 = new PracticeSurfaceView14(this);
+//        render14 = new PracticeRender14(this,getResources());
+//        if (isSupportGLES20()) {
+//            surfaceView14.setEGLContextClientVersion(2);
+//            surfaceView14.setRenderer(render14);
+//            surfaceView14.setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
+//        }
+//        setContentView(surfaceView14);
     }
 
     private boolean isSupportGLES20() {

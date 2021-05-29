@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout android:id="@+id/practice_3_linear"
+<android.support.constraint.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/practice_3_linear"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -30,14 +31,82 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="切换" />
+
+        <Button
+            android:id="@+id/jumpAty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="遮盖预览" />
     </LinearLayout>
+
+<!--    <android.opengl.GLSurfaceView-->
+<!--        android:id="@+id/preview_bottom"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:visibility="gone"-->
+<!--        android:background="@color/colorAccent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/control_rl" />-->
 
     <android.opengl.GLSurfaceView
         android:id="@+id/preview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/control_rl" />
+        app:layout_constraintTop_toBottomOf="@id/control_rl"
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteX="-25dp" />
 
+
+    <Button
+        android:id="@+id/preview_top3"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@color/colorPrimary"
+        android:text="下层被遮挡View1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.051"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/control_rl"
+        app:layout_constraintVertical_bias="0.425" />
+
+    <com.sf.openglpractice2.Practice7_camera.GLTextureView
+        android:id="@+id/preview_top"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:translationZ="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.255"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/control_rl"
+        app:layout_constraintVertical_bias="0.616" />
+
+    <Button
+        android:id="@+id/preview_top2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="40dp"
+        android:background="@color/colorPrimary"
+        android:text="普通遮盖viw2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/control_rl"
+        app:layout_constraintVertical_bias="0.6" />
+
+    <Button
+        android:id="@+id/preview_top9"
+        android:layout_width="154dp"
+        android:layout_height="146dp"
+        android:background="@color/colorAccent"
+        android:text="顶层遮盖viw3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.672"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/control_rl"
+        app:layout_constraintVertical_bias="0.762" />
 
 </android.support.constraint.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.sf.openglpractice2.Practice8_egl
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.SurfaceTexture
 import android.os.Bundle
@@ -12,6 +13,7 @@ import android.widget.Button
 import android.widget.RelativeLayout
 import com.sf.opengldemo1.R
 import com.sf.openglpractice2.Practice7_camera.CameraHelper
+import com.sf.openglpractice2.Practice7_camera.SecondTopActivity
 
 class CameraTextureViewEGLActivity : AppCompatActivity(), View.OnClickListener, TextureView.SurfaceTextureListener, SurfaceTexture.OnFrameAvailableListener {
 
@@ -39,7 +41,9 @@ class CameraTextureViewEGLActivity : AppCompatActivity(), View.OnClickListener, 
     val clearPreviewBtn by lazy {
         findViewById<Button>(R.id.clearBtn)
     }
-
+    val jumpBtn by lazy {
+        findViewById<Button>(R.id.jumpAty)
+    }
 
     var render: EGLRender? = null
 
@@ -55,7 +59,9 @@ class CameraTextureViewEGLActivity : AppCompatActivity(), View.OnClickListener, 
         switchFrontBackBtn.setOnClickListener(this)
         switchPreviewBtn.setOnClickListener(this)
         clearPreviewBtn.setOnClickListener(this)
-
+        jumpBtn.setOnClickListener {
+            startActivity(Intent(this, SecondTopActivity::class.java))
+        }
     }
 
     override fun onClick(v: View?) {
@@ -97,7 +103,7 @@ class CameraTextureViewEGLActivity : AppCompatActivity(), View.OnClickListener, 
 
     /**
      * TextureView内置的SurfaceTexture用来配合EGL来将图像显示到屏幕上
-     * 自定义的SurfaceTexture用来接收Camera的预览图像
+     * 自定义的SurfaceTexture用来接收Camera的预览图像流
      * @param surface SurfaceTexture
      * @param width Int
      * @param height Int

@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.sf.opengldemo1">
+<manifest package="com.sf.opengldemo1"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <!--会过滤掉不支持2.0的手机-->
-    <uses-feature android:glEsVersion="0x00020000" android:required="true" />
+
     <!--纹理压缩格式格式声明-->
-    <supports-gl-texture android:name="GL_OES_compressed_ETC1_RGB8_texture" />
-    <supports-gl-texture android:name="GL_OES_compressed_paletted_texture" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,114 +11,61 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN"/>-->
-
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
-            <!--</intent-filter>-->
-        </activity>
-        <activity android:name=".practice1.Practice_1_Activity"
-            android:screenOrientation="landscape">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN"/>-->
-
-            <!--<category android:name="android.intent.category.LAUNCHER"/>-->
-            <!--</intent-filter>-->
-        </activity>
-        <activity android:name=".practice2.Practice_2_Activity"/>
-        <activity android:name=".practice3.Practice_3_Activity"/>
-        <activity android:name=".practice4.Practice_4_Activity"/>
-        <activity android:name=".practice5.Practice_5_Acitity"/>
-        <activity android:name=".practice6.Practice_6_Acitivty"/>
-        <activity android:name=".practice7.Practice_7_Activity"/>
-        <activity android:name=".practice8.Practice_8_Activity"/>
-        <activity android:name=".practice9.Practice_9_Activity"/>
-        <activity android:name=".practice10.Practice_10_Activity"/>
-        <activity android:name=".practice11.Practice_11_Activity"/>
-        <activity android:name=".practice12.Practice_12_Activity"/>
-        <activity android:name=".practice13.Practice_13_Activity"/>
-        <activity android:name=".practice14.Practice_14_Activity"/>
-        <!--practice 2-->
-        <activity android:name="com.sf.openglpractice2.Practice1_Basic_Graphic_2D.Practice1Acitivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN"/>-->
-
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
-            <!--</intent-filter>-->
-        </activity>
-
-        <activity android:name="com.sf.openglpractice2.Practice2_Basic_Graphic_3D.Practice3DAcitivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN"/>-->
-
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
-            <!--</intent-filter>-->
-        </activity>
-
-        <activity android:name="com.sf.openglpractice2.Practice3_Basic_Graphic_Shader.PracticeShaderAcitivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN"/>-->
-
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
-            <!--</intent-filter>-->
-        </activity>
-
-        <activity android:name="com.sf.openglpractice2.Practice4_Basic_Texture.single_texture_gl10.SingleTexture_GL10_Activity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN"/>-->
-
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
-            <!--</intent-filter>-->
-        </activity>
-
-        <activity android:name="com.sf.openglpractice2.Practice4_Basic_Texture.single_texture_gl20.SingleTexture_GL20_Activity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN"/>-->
-
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
-            <!--</intent-filter>-->
-        </activity>
-        <activity android:name="com.sf.openglpractice2.Practice4_Basic_Texture.multi_texture_gl20.MultiTexture_GL20_Activity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN"/>-->
-
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
-            <!--</intent-filter>-->
-        </activity>
-
-        <activity android:name="com.sf.openglpractice2.Practice5_Basic_Filter.filer1_basic.GrayFilter1_Activity">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN"/>-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER"/>-->
-<!--            </intent-filter>-->
-        </activity>
-
-        <activity android:name="com.sf.openglpractice2.Practice7_camera.CameraGlsurfaceviewActivity">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN"/>-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER"/>-->
-<!--            </intent-filter>-->
-        </activity>
-
-        <activity android:name="com.sf.openglpractice2.Practice8_egl.CameraTextureViewEGLActivity">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN"/>-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER"/>-->
-<!--            </intent-filter>-->
-        </activity>
-
-        <activity android:name="com.sf.openglpractice2.Practice9_recoder.CameraGlsurfaceviewRecorderActivity">
+        <activity android:name="com.sf.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".practice1.Practice_1_Activity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".practice2.Practice_2_Activity" />
+        <activity android:name=".practice3.Practice_3_Activity" />
+        <activity android:name=".practice4.Practice_4_Activity" />
+        <activity android:name=".practice5.Practice_5_Acitity" />
+        <activity android:name=".practice6.Practice_6_Acitivty" />
+        <activity android:name=".practice7.Practice_7_Activity" />
+        <activity android:name=".practice8.Practice_8_Activity" />
+        <activity android:name=".practice9.Practice_9_Activity" />
+        <activity android:name=".practice10.Practice_10_Activity" />
+        <activity android:name=".practice11.Practice_11_Activity" />
+        <activity android:name=".practice12.Practice_12_Activity" />
+        <activity android:name=".practice13.Practice_13_Activity" />
+        <activity android:name=".practice14.Practice_14_Activity" />
+        <!--practice 2-->
+        <activity android:name="com.sf.openglpractice2.Practice1_Basic_Graphic_2D.Practice1Acitivity" />
+
+        <activity android:name="com.sf.openglpractice2.Practice2_Basic_Graphic_3D.Practice3DAcitivity" />
+
+        <activity android:name="com.sf.openglpractice2.Practice3_Basic_Graphic_Shader.PracticeShaderAcitivity" />
+        <activity android:name="com.sf.openglpractice2.Practice4_Basic_Texture.single_texture_gl10.SingleTexture_GL10_Activity" />
+
+        <activity android:name="com.sf.openglpractice2.Practice4_Basic_Texture.single_texture_gl20.SingleTexture_GL20_Activity" />
+        <activity android:name="com.sf.openglpractice2.Practice4_Basic_Texture.multi_texture_gl20.MultiTexture_GL20_Activity" />
+        <activity android:name="com.sf.openglpractice2.Practice5_Basic_Filter.filer1_basic.GrayFilter1_Activity" />
+        <activity android:name="com.sf.openglpractice2.Practice7_camera.CameraGlsurfaceviewActivity" />
+        <activity android:name="com.sf.openglpractice2.Practice8_egl.CameraTextureViewEGLActivity" />
+        <activity android:name="com.sf.openglpractice2.Practice9_recoder.CameraGlsurfaceviewRecorderActivity" />
+        <activity android:name="com.sf.openglpractice2.Practice7_camera.SecondTopActivity" />
+        <activity android:name="com.sf.openglpractice2.Practice10_imageToVideo.ImageToVideoActivity" />
+        <activity android:name="com.sf.openglpractice2.practice11_imagetransition.ImageTransitionActivity" />
 
     </application>
+    <supports-gl-texture android:name="GL_OES_compressed_ETC1_RGB8_texture" />
+
+    <supports-gl-texture android:name="GL_OES_compressed_paletted_texture" />
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
 
 </manifest>

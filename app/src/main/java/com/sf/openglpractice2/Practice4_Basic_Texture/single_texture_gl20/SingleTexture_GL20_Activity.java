@@ -22,12 +22,12 @@ public class SingleTexture_GL20_Activity extends AppCompatActivity {
         initTextureRender();
     }
     private void initTextureRender(){
-        mSurfaceView=new GLSurfaceView(this);
-        render=new SingleTextureRender_GL20(this);
-        mSurfaceView.setEGLContextClientVersion(2);
-        mSurfaceView.setRenderer(render);
-        setContentView(mSurfaceView);
-        mSurfaceView.setRenderMode(RENDERMODE_CONTINUOUSLY);
+//        mSurfaceView=new GLSurfaceView(this);
+//        render=new SingleTextureRender_GL20(this);
+//        mSurfaceView.setEGLContextClientVersion(2);
+//        mSurfaceView.setRenderer(render);
+//        setContentView(mSurfaceView);
+//        mSurfaceView.setRenderMode(RENDERMODE_CONTINUOUSLY);
     }
 
 }

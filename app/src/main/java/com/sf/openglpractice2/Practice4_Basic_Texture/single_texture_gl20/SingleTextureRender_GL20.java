@@ -10,6 +10,7 @@ import android.opengl.Matrix;
 
 import com.sf.opengldemo1.R;
 import com.sf.openglpractice2.Practice3_Basic_Graphic_Shader.BufferUtils;
+import com.sf.openglpractice2.Practice7_camera.GLTextureView;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
@@ -25,6 +26,7 @@ import static android.opengl.GLES20.GL_ONE_MINUS_SRC_ALPHA;
  * @Date: 2019/6/6
  * @Des: //TODO
  */
+//public class SingleTextureRender_GL20 implements GLTextureView.Renderer {
 public class SingleTextureRender_GL20 implements GLSurfaceView.Renderer {
 
     private Context mContext;
@@ -73,7 +75,7 @@ public class SingleTextureRender_GL20 implements GLSurfaceView.Renderer {
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-        gl.glClearColor(1.0f,1.0f,1.0f,0.0f);
+        gl.glClearColor(0.2f,0.0f,0.0f,0.0f);
         GLES20.glEnable(GL10.GL_DEPTH_TEST);
         GLES20.glHint(GL10.GL_PERSPECTIVE_CORRECTION_HINT, GL10.GL_FASTEST);//修正函数
 
@@ -105,8 +107,8 @@ public class SingleTextureRender_GL20 implements GLSurfaceView.Renderer {
     public void onSurfaceChanged(GL10 gl, int width, int height) {
         GLES20.glViewport(0, 0, width, height);
         float ratio = (float) width / height;
-        Matrix.frustumM(mProjectMatrix,0,-ratio,ratio,-1,1,1,20);
-        Matrix.setLookAtM(mViewMatrix,0,0.0f,0.0f,3.0f,0f,0f,0f,0f,1f,0f);
+        Matrix.frustumM(mProjectMatrix,0,-ratio,ratio,-1,1,1,2);
+        Matrix.setLookAtM(mViewMatrix,0,0.0f,0.0f,2.0f,0f,0f,0f,0f,1f,0f);
         Matrix.multiplyMM(mMVPMatrix,0,mProjectMatrix,0,mViewMatrix,0);
     }
 
@@ -115,6 +117,8 @@ public class SingleTextureRender_GL20 implements GLSurfaceView.Renderer {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
         drawAndUseShader(gl);
     }
+
+
 
 
     /**

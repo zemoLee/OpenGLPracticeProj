@@ -124,7 +124,7 @@ class CameraRender : GLSurfaceView.Renderer {
     override fun onSurfaceCreated(gl: GL10?, config: EGLConfig?) {
         Log.d(TAG,"[onSurfaceCreated]")
 
-        GLES20.glClearColor(0.0f, 0.0f, 0.0f, 0.0f)
+        GLES20.glClearColor(0.0f, 0.0f, 0.0f, 0.5f)
 
         //创建oes外部纹理，给出回调，外部获取sufaceTexure
         mSurfaceTexture = createSufaceTexure()
